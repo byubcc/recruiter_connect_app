@@ -21,7 +21,7 @@ import Alamofire
  * VC. Basically, this protocol makes it so that when a recruiter object is passed
  * here, it will be set in the previous screen, avoiding errors that occur when the
  * user goes back, then forward.
- **/
+ */
 protocol LunchOptionsDelegate
 {
     func updateCheckInObject(checkIn : CheckIn?)
@@ -210,7 +210,7 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
     /**
      * Prepare for the segue by grabbing the selected item and passing it into the lunch
      * details page
-     **/
+     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
         // Get the index path from the collection according to what was selected
@@ -353,7 +353,7 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
                 // Create a dessert for each item returned in the array
                 for item in json
                 {
-                    var dessert = Dessert(item: item as! NSDictionary)
+                    var dessert = Dessert(item: item as! NSDictionary, completion: nil)
                     
                     self.desserts.append(dessert)
                 }

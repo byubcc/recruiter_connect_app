@@ -50,24 +50,6 @@ class MenuItem {
         if let photo = item["photo"] as? String
         {
             self.photoURL = "http://recruiterconnect.byu.edu\(photo)"
-            
-            // Alamofire call to get the images
-            Alamofire.request(.GET, self.photoURL!, parameters: nil).response
-            {
-                (request, response, data, error) in
-                
-                if let ERROR = error
-                {
-                    println("<<<<<<<<<<<<<<<<<<< IMAGE ERROR: \(ERROR)")
-                }
-                
-                if let image = data
-                {
-                    self.photo = UIImage(data : image)
-                }
-                
-                completion()
-            }
         }
         else
         {
@@ -103,6 +85,24 @@ class MenuItem {
                     }
                 }
             }
+        }
+        
+        // Alamofire call to get the images
+        Alamofire.request(.GET, self.photoURL!, parameters: nil).response
+            {
+                (request, response, data, error) in
+                
+                if let ERROR = error
+                {
+                    println("<<<<<<<<<<<<<<<<<<< IMAGE ERROR: \(ERROR)")
+                }
+                
+                if let image = data
+                {
+                    self.photo = UIImage(data : image)
+                }
+                
+                completion()
         }
     }
 }
