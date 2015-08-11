@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>76F6A338-3F31-4C9D-B8A2-EE5E11E8E87C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Recruiter Connect</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>AB3EEB8015E680013FBCCAAB6CB4A5B8C2F1C926</key>
+		<string>https://github.com/jdt1204/recruiter_connect_ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Recruiter Connect.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>AB3EEB8015E680013FBCCAAB6CB4A5B8C2F1C926</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/jdt1204/recruiter_connect_ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>AB3EEB8015E680013FBCCAAB6CB4A5B8C2F1C926</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>AB3EEB8015E680013FBCCAAB6CB4A5B8C2F1C926</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Recruiter%20Connect</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -25,10 +25,8 @@ class Dessert {
     }
     
     // Custom init for when passed a Dictionary from REST call
-    init(item : NSDictionary, completion: (() -> ())?)
+    init(item : NSDictionary)
     {
-        var errorFlag = false
-        
         if let id = item["id"] as? Int
         {
             self.id = id
@@ -47,24 +45,42 @@ class Dessert {
         {
             self.photoURL = "http://recruiterconnect.byu.edu/media/utility_images/not-available.png"
         }
+    }
+    
+    /**
+     * Function to retrieve the images for the desserts
+     * I needed to make this separate from the init method so as to be able to call it after the 
+     * object is declared.
+     */
+    func retrieveImages(completion: ((errorFlag : Bool) -> ())?)
+    {
+        var errorFlag = false
         
-        // Alamofire call to get the image
-        Alamofire.request(.GET, self.photoURL!, parameters: nil).response
+        if let photoURL = self.photoURL
         {
-            (request, response, data, error) in
-                
-            if let ERROR = error
+            // Alamofire call to get the image
+            Alamofire.request(.GET, self.photoURL!, parameters: nil).response
             {
-                println("<<<<<<<<<<<<<<<<<<<<<<< DESSERT IMAGE ERROR: \(ERROR)")
-                errorFlag = true
+                (request, response, data, error) in
+                    
+                if let ERROR = error
+                {
+                    println("<<<<<<<<<<<<<<<<<<<<<<< DESSERT IMAGE ERROR: \(ERROR)")
+                    errorFlag = true
+                }
+                    
+                if let image = data
+                {
+                    self.photo = UIImage(data : image)
+                }
+                    
+                completion?(errorFlag: errorFlag)
             }
-                
-            if let image = data
-            {
-                self.photo = UIImage(data : image)
-            }
-                
-            completion?()
+        }
+        else
+        {
+            errorFlag = true
+            completion?(errorFlag: errorFlag)
         }
     }
 }

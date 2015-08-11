@@ -20,6 +20,7 @@
 		524CDC2C1B79037800CF22DF /* Dessert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524CDC2B1B79037800CF22DF /* Dessert.swift */; };
 		524CDC2E1B790D1B00CF22DF /* WelcomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524CDC2D1B790D1B00CF22DF /* WelcomeScreenViewController.swift */; };
 		524CDC301B7962ED00CF22DF /* DessertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524CDC2F1B7962ED00CF22DF /* DessertCell.swift */; };
+		524CDC321B7A69D400CF22DF /* DessertSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524CDC311B7A69D400CF22DF /* DessertSelectionViewController.swift */; };
 		524EB0471AE54999004305D3 /* Recruiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524EB0461AE54999004305D3 /* Recruiter.swift */; };
 		525D8C5D1ACE1A5E00F3A34A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525D8C5C1ACE1A5E00F3A34A /* LoginViewController.swift */; };
 		525D8C5F1ACE22EF00F3A34A /* VehicleInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525D8C5E1ACE22EF00F3A34A /* VehicleInfoViewController.swift */; };
@@ -62,6 +63,7 @@
 		524CDC2B1B79037800CF22DF /* Dessert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dessert.swift; sourceTree = "<group>"; };
 		524CDC2D1B790D1B00CF22DF /* WelcomeScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeScreenViewController.swift; sourceTree = "<group>"; };
 		524CDC2F1B7962ED00CF22DF /* DessertCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DessertCell.swift; sourceTree = "<group>"; };
+		524CDC311B7A69D400CF22DF /* DessertSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DessertSelectionViewController.swift; sourceTree = "<group>"; };
 		524EB0461AE54999004305D3 /* Recruiter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recruiter.swift; sourceTree = "<group>"; };
 		525D8C5C1ACE1A5E00F3A34A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		525D8C5E1ACE22EF00F3A34A /* VehicleInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleInfoViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				52BDC0F71A7FDC6600F29C16 /* AppDelegate.swift */,
 				523E1A711A82929400A9BBA1 /* CompanyInfoViewController.swift */,
 				525D8C601ACE239900F3A34A /* DurationAndLunchViewController.swift */,
+				524CDC311B7A69D400CF22DF /* DessertSelectionViewController.swift */,
 				525D8C5C1ACE1A5E00F3A34A /* LoginViewController.swift */,
 				523E1A751A8292EF00A9BBA1 /* LunchOptionsViewController.swift */,
 				52CA4F5A1ADF3635000696B6 /* LunchDetailsViewController.swift */,
@@ -366,6 +369,7 @@
 			files = (
 				52F03F281AE987FE0010C407 /* SaladDressing.swift in Sources */,
 				52CA4F5B1ADF3635000696B6 /* LunchDetailsViewController.swift in Sources */,
+				524CDC321B7A69D400CF22DF /* DessertSelectionViewController.swift in Sources */,
 				52E060A71B6D9FC700E2001D /* Ingredient.swift in Sources */,
 				525D8C5D1ACE1A5E00F3A34A /* LoginViewController.swift in Sources */,
 				524CDC2C1B79037800CF22DF /* Dessert.swift in Sources */,

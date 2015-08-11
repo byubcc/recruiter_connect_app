@@ -353,9 +353,26 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
                 // Create a dessert for each item returned in the array
                 for item in json
                 {
-                    var dessert = Dessert(item: item as! NSDictionary, completion: nil)
+                    var dessert = Dessert(item: item as! NSDictionary)
                     
-                    self.desserts.append(dessert)
+                    // Grab the images and then append the dessert to the array
+                    dessert.retrieveImages()
+                    {
+                        (errorFlag) in
+                        
+                        if errorFlag
+                        {
+                            let alert = UIAlertView()
+                            
+                            alert.title   = "Network error"
+                            alert.message = "It seems that the network is acting up. Be aware that the dessert images will not appear in the next screen."
+                            alert.addButtonWithTitle("OK")
+                            
+                            alert.show()
+                        }
+                        
+                        self.desserts.append(dessert)
+                    }
                 }
             }
             else
