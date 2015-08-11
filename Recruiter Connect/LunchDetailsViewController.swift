@@ -22,16 +22,12 @@ class LunchDetailsViewController: UIViewController
     // Lunch Order Variable
     let lunchOrder = LunchOrder()
     
-    // Array of desserts to be passed from the previous view
-    var desserts : [Dessert]?
-    
     // Outlets for the Menu Item info
     @IBOutlet weak var menuItemName  : UILabel!
     @IBOutlet weak var menuItemImage : UIImageView!
     
     // Views that act as UI element containers
-    @IBOutlet weak var collection           : UICollectionView!
-    @IBOutlet weak var ingredientsContainer : UIScrollView!
+    @IBOutlet weak var ingredientsContainer: UIView!
     
     // Constants for the correct font and text color to be used
     let smallFont        = UIFont(name: "HelveticaNeue-Thin", size: 20.0)
@@ -59,9 +55,6 @@ class LunchDetailsViewController: UIViewController
         
         // Assign the menu item image to the UIImageView
         menuItemImage.image = menuItem?.photo
-        
-        // Set the background of the collectionView
-        self.collection.backgroundColor = self.selectedTabColor
         
         // Create the Switches and labels for the dessert view
         if let ingredientsArray = menuItem?.ingredients
@@ -142,6 +135,18 @@ class LunchDetailsViewController: UIViewController
 //-------------------------------------- NAVIGATION ----------------------------------------//
 //------------------------------------------------------------------------------------------//
     
+    /**
+     * Select button tapped - Create the lunch order object, dismiss this modal, 
+     * and pass the necessary objects to the next dessert modal
+     */
+    @IBAction func selectButtonTapped(sender: AnyObject)
+    {
+        
+    }
+    
+    /**
+     * Cancel Button Tapped - dismiss the modal so user can select another option
+     */
     @IBAction func cancelButtonTapped(sender: AnyObject)
     {
         self.dismissViewControllerAnimated(true, completion: nil)

@@ -1709,7 +1709,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Menu Item Name Goes Here" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gq-lo-nuZ">
                                 <rect key="frame" x="16" y="0.0" width="200" height="240"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="35"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="37"/>
                                 <color key="textColor" red="0.30588235294117649" green="0.42352941176470588" blue="0.63921568627450975" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1738,8 +1738,8 @@
                                 </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="boB-fa-UV2">
-                                <rect key="frame" x="344" y="543" width="62" height="37"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="21"/>
+                                <rect key="frame" x="350" y="538" width="73" height="42"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="25"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1747,14 +1747,24 @@
                                     <action selector="cancelButtonTapped:" destination="u6Z-Ij-Nld" eventType="touchUpInside" id="k00-Aa-frH"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ohl-cn-h94">
+                                <rect key="frame" x="177" y="538" width="68" height="42"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="25"/>
+                                <state key="normal" title="Select">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="selectButtonTapped:" destination="u6Z-Ij-Nld" eventType="touchUpInside" id="0PP-Uu-Eo3"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.87450980389999999" green="0.87450980389999999" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Lunch Item Details" id="dQE-6q-JHP"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="cancelButton" destination="boB-fa-UV2" id="gcX-gR-TNI"/>
                         <outlet property="collection" destination="pra-i5-0Z1" id="Kl3-Sn-CqG"/>
+                        <outlet property="ingredientsContainer" destination="Gqc-3S-z6A" id="7CW-H2-Fl7"/>
                         <outlet property="menuItemImage" destination="Gi4-nU-btC" id="31F-3h-xOK"/>
                         <outlet property="menuItemName" destination="0gq-lo-nuZ" id="kNd-S7-pVZ"/>
                     </connections>
@@ -1812,8 +1822,8 @@
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="u6Z-Ij-Nld" id="dcI-F1-3Uw"/>
-                                    <outlet property="delegate" destination="u6Z-Ij-Nld" id="Zg8-kM-QQa"/>
+                                    <outlet property="dataSource" destination="See-FJ-gvG" id="7cZ-GF-DDg"/>
+                                    <outlet property="delegate" destination="See-FJ-gvG" id="qo7-Rs-1T6"/>
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Dessert:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anJ-Cz-CQR">
@@ -1822,8 +1832,28 @@
                                 <color key="textColor" red="0.30588235289999999" green="0.42352941179999998" blue="0.63921568630000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfo-n0-umf">
+                                <rect key="frame" x="350" y="538" width="73" height="42"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="25"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelButtonTapped:" destination="See-FJ-gvG" eventType="touchUpInside" id="BdL-oy-8Sa"/>
+                                    <action selector="cancelButtonTapped:" destination="u6Z-Ij-Nld" eventType="touchUpInside" id="yDP-LC-aii"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6jm-7z-iHI">
+                                <rect key="frame" x="177" y="538" width="68" height="42"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="25"/>
+                                <state key="normal" title="Select">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="selectButtonTapped:" destination="See-FJ-gvG" eventType="touchUpInside" id="Gqj-bx-tMD"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.87450980389999999" green="0.87450980389999999" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="pra-i5-0Z1" secondAttribute="centerX" id="6aK-j6-kVP"/>
                             <constraint firstItem="anJ-Cz-CQR" firstAttribute="top" secondItem="own-aE-dkg" secondAttribute="bottom" constant="22" id="COH-SH-i8F"/>
@@ -1834,6 +1864,12 @@
                             <constraint firstItem="pra-i5-0Z1" firstAttribute="leading" secondItem="K8H-eq-gv1" secondAttribute="leading" constant="16" id="yh3-1d-K5p"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="vfo-n0-umf" id="czo-Dd-FS1"/>
+                        <outlet property="cancelButtonTapped" destination="vfo-n0-umf" id="cSA-Mi-Y8J"/>
+                        <outlet property="collection" destination="pra-i5-0Z1" id="O5l-46-pxV"/>
+                        <outlet property="selectButton" destination="6jm-7z-iHI" id="Drj-h7-CJj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nsD-xw-nRo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

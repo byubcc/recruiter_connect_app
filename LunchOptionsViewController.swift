@@ -58,9 +58,6 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
     var salads      = [MenuItem]()
     var soups       = [MenuItem]()
     var sandwiches  = [MenuItem]()
-    
-    // Array of the desserts
-    var desserts = [Dessert]()
 
 //------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------//
@@ -110,31 +107,12 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
             }
             else
             {
-                // Start the call for retrieving the desserts
-                self.retrieveDesserts()
-                {
-                    (errorFlag) in
-                    
-                    if errorFlag
-                    {
-                        let alert = UIAlertView()
-                        
-                        alert.title   = "Network error"
-                        alert.message = "Please make sure you are connected to WiFi. If you are, then try again later"
-                        alert.addButtonWithTitle("OK")
-                        
-                        alert.show()
-                    }
-                    else
-                    {
-                        // When done move the overlay
-                        self.blankCoverView.hidden = true
-                        self.progressSpinner.stopAnimating()
-                        
-                        // Redraw the collection based on what was brough in from REST call
-                        self.collection.reloadData()
-                    }
-                }
+                // When done move the overlay
+                self.blankCoverView.hidden = true
+                self.progressSpinner.stopAnimating()
+                
+                // Redraw the collection based on what was brough in from REST call
+                self.collection.reloadData()
             }
         }
     }
@@ -237,7 +215,6 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
         let nextVC = segue.destinationViewController as! LunchDetailsViewController
         
         nextVC.menuItem = selectedItem
-        nextVC.desserts = self.desserts
     }
     
 //------------------------------------------------------------------------------------------//
@@ -321,69 +298,6 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
 //------------------------------------------------------------------------------------------//
 //--------------------------------- OTHER USEFUL FUNCTIONS ---------------------------------//
 //------------------------------------------------------------------------------------------//
-    
-    /**
-    * Make the Alamofire request for the desserts
-    */
-    func retrieveDesserts(completion: ((Bool) -> Void)?)
-    {
-        // Attempt to make the GET call via Alamofire
-        let endpoint = "http://recruiterconnect.byu.edu/api/desserts/?format=json"
-        
-        var errorFlag = false
-        
-        // Make the GET request via AlamoFire
-        Alamofire.request(.GET, endpoint).responseJSON
-        {
-            (request, response, data, error) in
-            
-            // Reinitialize the array, just in case page is reloaded
-            self.desserts = [Dessert]()
-                
-            // If there's an error, print it
-            if let JSONError = error
-            {
-                println("<<<<<<<<<<<<<<< DESSERT ERROR: \(JSONError)")
-                errorFlag = true
-            }
-                
-            // Unwrap the data into a NSArray
-            if let json: NSArray = data as? NSArray
-            {
-                // Create a dessert for each item returned in the array
-                for item in json
-                {
-                    var dessert = Dessert(item: item as! NSDictionary)
-                    
-                    // Grab the images and then append the dessert to the array
-                    dessert.retrieveImages()
-                    {
-                        (errorFlag) in
-                        
-                        if errorFlag
-                        {
-                            let alert = UIAlertView()
-                            
-                            alert.title   = "Network error"
-                            alert.message = "It seems that the network is acting up. Be aware that the dessert images will not appear in the next screen."
-                            alert.addButtonWithTitle("OK")
-                            
-                            alert.show()
-                        }
-                        
-                        self.desserts.append(dessert)
-                    }
-                }
-            }
-            else
-            {
-                errorFlag = true
-            }
-            
-            completion?(errorFlag)
-        }
-        
-    }
     
     /**
      * Make the Alamofire request for the menu items

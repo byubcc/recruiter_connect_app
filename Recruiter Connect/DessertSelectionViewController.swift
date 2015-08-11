@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class DessertSelectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate
 {
@@ -14,8 +15,19 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
 //------------------------------------------------------------------------------------------//
 //---------------------------------------- OUTLETS -----------------------------------------//
 //------------------------------------------------------------------------------------------//
-
+    
+    // Array for the desserts
     var desserts = [Dessert]()
+    
+    // Collection view outlet
+    @IBOutlet weak var collection: UICollectionView!
+    
+    // Styles
+    let selectedTabColor = UIColor(red: 223/255, green: 223/255, blue: 225/255, alpha: 1.0)
+    
+    // Buttons
+    @IBOutlet weak var selectButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     
 //------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------//
@@ -29,7 +41,19 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
     {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // Set the background of the collectionView
+        self.collection.backgroundColor = self.selectedTabColor
+        
+        // Retrieve the desserts from the DB
+        self.retrieveDesserts()
+        {
+            (errorFlag) in
+            
+            // Remove the overlay
+            
+            // Redraw the collection
+            self.collection.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning()
@@ -46,7 +70,22 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
 //-------------------------------------- NAVIGATION ----------------------------------------//
 //------------------------------------------------------------------------------------------//
     
-
+    /**
+     * Select Button tapped - Dismiss this modal, create the lunch order, and move to the 
+     * Thank you screen
+     */
+    @IBAction func selectButtonTapped(sender: AnyObject)
+    {
+        
+    }
+    
+    /**
+     * Cancel button tapped - Dismiss this modal and return to the previous
+     */
+    @IBAction func cancelButtonTapped(sender: AnyObject)
+    {
+        
+    }
     
 //------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------//
@@ -98,4 +137,76 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
 //------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------//
     
+//------------------------------------------------------------------------------------------//
+//--------------------------------- OTHER USEFUL FUNCTIONS ---------------------------------//
+//------------------------------------------------------------------------------------------//
+    
+    /**
+    * Make the Alamofire request for the desserts
+    */
+    func retrieveDesserts(completion: ((Bool) -> Void)?)
+    {
+        // Attempt to make the GET call via Alamofire
+        let endpoint = "http://recruiterconnect.byu.edu/api/desserts/?format=json"
+        
+        var errorFlag = false
+        
+        // Make the GET request via AlamoFire
+        Alamofire.request(.GET, endpoint).responseJSON
+        {
+            (request, response, data, error) in
+                
+            // Reinitialize the array, just in case page is reloaded
+            self.desserts = [Dessert]()
+            
+            // If there's an error, print it
+            if let JSONError = error
+            {
+                println("<<<<<<<<<<<<<<< DESSERT ERROR: \(JSONError)")
+                errorFlag = true
+            }
+                
+            // Unwrap the data into a NSArray
+            if let json: NSArray = data as? NSArray
+            {
+                // Create a dessert for each item returned in the array
+                for item in json
+                {
+                    var dessert = Dessert(item: item as! NSDictionary)
+                    
+                    // Grab the images and then append the dessert to the array
+                    dessert.retrieveImages()
+                    {
+                        (errorFlag) in
+                            
+                        if errorFlag
+                        {
+                            let alert = UIAlertView()
+                                
+                            alert.title   = "Network error"
+                            alert.message = "It seems that the network is acting up. Be aware that the dessert images will not appear in the next screen."
+                            alert.addButtonWithTitle("OK")
+                                
+                            alert.show()
+                        }
+                            
+                        self.desserts.append(dessert)
+                        self.collection.reloadData()
+                    }
+                }
+            }
+            else
+            {
+                errorFlag = true
+            }
+                
+            completion?(errorFlag)
+        }
+        
+    }
+    
+//------------------------------------------------------------------------------------------//
+//------------------------------------------------------------------------------------------//
+//------------------------------------------------------------------------------------------//
+
 }
