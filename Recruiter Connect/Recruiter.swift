@@ -22,7 +22,9 @@ class Recruiter
     var photo: String?
     let groups = "4"
     
-    // Default Initializer
+    /**
+     * Default Initializer
+     */
     init()
     {
         self.password = "Derikismyfavorite1"
@@ -31,7 +33,9 @@ class Recruiter
         self.email = "recruitersupport9@byu.edu"
     }
     
-    // Custom Initializer
+    /**
+     * Custom Initializer
+     */
     init(recruiter: NSDictionary)
     {
         if let company = recruiter["company"] as? Company
@@ -60,18 +64,23 @@ class Recruiter
         }
     }
     
-    // Method for CREATING a new object in the DB according to
-    // attributes of this object
-    func create()
+    /**
+     * Method for CREATING a new object in the DB according to
+     * attributes of this object
+     */
+    func create(completion : ((errorFlag : Bool) -> ())?)
     {
+        // Var for the error flag
+        var errorFlag = false
+        
         // Create the parameters in the correct format
         let parameters =
         [
-            "first_name": self.firstName!,
-            "last_name": self.lastName!,
-            "password": self.password!,
-            "email": self.email!,
-            "company": String(self.company!.id!),
+            "first_name" : self.firstName!,
+            "last_name"  : self.lastName!,
+            "password"   : self.password!,
+            "email"      : self.email!,
+            "company"    : String(self.company!.id!),
         ]
         
         println("PARAMETERS: \(parameters)")
@@ -90,7 +99,8 @@ class Recruiter
             // if there's an error, print it
             if let JSONError = error
             {
-                println("ERROR: \(JSONError)")
+                println("<<<<<<<<<< RECRUITER ERROR: \(JSONError)")
+                errorFlag = true
             }
                 
             // Print the data
@@ -101,12 +111,16 @@ class Recruiter
                 // Set the ID
                 self.id = JSONData["id"] as? Int
             }
+            
+            // Call the completion handler
+            completion?(errorFlag: errorFlag)
         }
-        
     }
     
-    // Method for UPDATING the related object in the DB according
-    // to the attributes of this object
+    /**
+     * Method for UPDATING the related object in the DB according
+     * to the attributes of this object
+     */ 
     func updateDB()
     {
         

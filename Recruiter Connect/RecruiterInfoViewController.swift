@@ -69,13 +69,16 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
         self.companyField.inputView = self.picker
         
         // Set up the delegates for the textfields to this class
-        firstNameField.delegate       = self
-        lastNameField.delegate        = self
-        emailField.delegate           = self
-        passwordField.delegate        = self
-        confirmPasswordField.delegate = self
-        phoneField.delegate           = self
-        companyField.delegate         = self
+        self.firstNameField.delegate       = self
+        self.lastNameField.delegate        = self
+        self.emailField.delegate           = self
+        self.passwordField.delegate        = self
+        self.confirmPasswordField.delegate = self
+        self.phoneField.delegate           = self
+        self.companyField.delegate         = self
+        
+        // Set the first responder to the first name field
+        self.firstNameField.becomeFirstResponder()
     }
     
     override func didReceiveMemoryWarning()
@@ -86,7 +89,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
     
     /**
      * The functions to move to the next UITextField for all of the textfields
-     **/
+     */
     func textFieldShouldReturn(textField: UITextField) -> Bool
     {
         // Based on which textfield it is, move to the next one
@@ -122,7 +125,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
     
     /**
      * Action to dismiss the page if the user selects the "back" button at the top of the screen
-     **/
+     */
     @IBAction func dismiss(sender: AnyObject)
     {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -130,7 +133,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
     
     /** 
      * Prepare for segue if it's to the Add company modal
-     **/
+     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
         // Check that it's the correct segue
@@ -152,7 +155,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
     
     /** 
      * Prepare for the segue and stop it if the information isn't filled out totally
-     **/
+     */
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool
     {
         // Check to see if it's the correct segue
@@ -240,7 +243,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
     
     /**
      * Function to go out and grab the companies
-     **/
+     */
     func grabCompanies(completion:() -> Void)
     {
         // Go out and grab all of the companies from the DB
@@ -282,7 +285,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
     
     /**
      * Select a recently updated company after modal is dismissed
-     **/
+     */
     func updateNewCompany(newCompany: String)
     {
         // reload the pickerview
@@ -307,7 +310,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
     /**
      * Required method for the UIPickerViewDataSource protocol.
      * Returns the number of components for the companies picker view.
-     **/
+     */
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int
     {
         return 1
@@ -316,7 +319,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
     /** 
      * Required method for the UIPickerViewDataSource protocol
      * Returns the number of rows for the single component in the picker view.
-     **/
+     */
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
     {
         return self.companiesArray.count
@@ -324,7 +327,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
     
     /**
      * Put the names of the companies into the picker view
-     **/
+     */
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String!
     {
         return self.companiesArray[row].name!
@@ -332,7 +335,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
     
     /** 
      * When a user selects company, add it to the company text field
-     **/
+     */
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
         self.companyField.text = companiesArray[row].name!
@@ -344,6 +347,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
 //------------------------------------------------------------------------------------------//
 
 }
+
 //------------------------------------------------------------------------------------------//
 //---------------------------------- DELEGATE EXTENSION ------------------------------------//
 //------------------------------------------------------------------------------------------//
