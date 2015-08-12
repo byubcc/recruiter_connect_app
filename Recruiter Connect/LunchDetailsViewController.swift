@@ -19,13 +19,19 @@ class LunchDetailsViewController: UIViewController
     // Menu item to be passed in from the previous screen
     var menuItem : MenuItem?
     
+    // Check In to be passed from the previous screen
+    var checkIn : CheckIn?
+    
     // Lunch Order Variable
-    let lunchOrder = LunchOrder()
+    var lunchOrder : LunchOrder?
     
     // Outlets for the Menu Item info
     @IBOutlet weak var menuItemName   : UILabel!
     @IBOutlet weak var menuItemImage  : UIImageView!
     @IBOutlet weak var customizeLabel : UILabel!
+    
+    // Array to hold the eventual UISwitches associated with the ingredients
+    var ingredientSwitchArray = [UISwitch]()
     
     // Views that act as UI element containers
     @IBOutlet weak var ingredientsContainer: UIView!
@@ -103,6 +109,9 @@ class LunchDetailsViewController: UIViewController
                     let ingredientSwitch = UISwitch()
                     ingredientSwitch.on  = true
                     
+                    // Append it to the array
+                    self.ingredientSwitchArray.append(ingredientSwitch)
+                    
                     // Create the Label
                     let ingredientName           = UILabel()
                     ingredientName.text          = ingredient.name
@@ -161,8 +170,36 @@ class LunchDetailsViewController: UIViewController
      */
     @IBAction func selectButtonTapped(sender: AnyObject)
     {
-        // Create the lunch order object and associate it with the info from the user
+        // Initialize the lunch order object and associate it with the info from the user
+        self.lunchOrder = LunchOrder()
         
+        self.lunchOrder?.menuItem    = self.menuItem!
+        self.lunchOrder?.checkIn     = self.checkIn!
+        self.lunchOrder?.ingredients = [Ingredient]()
+        
+        // Get the ingredients if there are any, and determine which ones to add from which ones are 
+        // actually selected
+        if let ingredientsArray = self.menuItem?.ingredients
+        {
+            for (index, ingredientSwitch) in enumerate(ingredientSwitchArray)
+            {
+                if ingredientSwitch.on
+                {
+                    self.lunchOrder?.ingredients?.append(ingredientsArray[index])
+                }
+            }
+        }
+        
+        // Dismiss this VC and call the next VC 
+        self.dismissViewControllerAnimated(true)
+        {
+            let ownerVC   = self.parentViewController
+            let dessertVC = DessertSelectionViewController()
+            
+            dessertVC.lunchOrder = self.lunchOrder
+            
+            ownerVC?.presentViewController(dessertVC, animated: true, completion: nil)
+        }
     }
     
     /**

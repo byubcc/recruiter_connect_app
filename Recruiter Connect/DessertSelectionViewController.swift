@@ -19,6 +19,9 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
     // Array for the desserts
     var desserts = [Dessert]()
     
+    // Variable to hold the lunch order object
+    var lunchOrder : LunchOrder?
+    
     // Collection view outlet
     @IBOutlet weak var collection: UICollectionView!
     
@@ -40,6 +43,9 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        // Print the lunch order object to make sure that it's there
+        println("<<<<<<<<<<<<<<<<<<<<<<< LUNCH ORDER OBJECT RECEIVED: \(lunchOrder)")
 
         // Set the background of the collectionView
         self.collection.backgroundColor = self.selectedTabColor

@@ -191,30 +191,34 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
      */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
-        // Get the index path from the collection according to what was selected
-        let indexPath: NSIndexPath = self.collection.indexPathForCell(sender as! UICollectionViewCell)!
-        
-        // Create variable for the menu item to pass in
-        var selectedItem = MenuItem()
-        
-        // Choose a menu item based on the section that the index path indicates
-        if sandwichView.backgroundColor == selectedTabColor
+        if segue.identifier == "showLunchDetails"
         {
-            selectedItem = sandwiches[indexPath.item]
+            // Get the index path from the collection according to what was selected
+            let indexPath: NSIndexPath = self.collection.indexPathForCell(sender as! UICollectionViewCell)!
+            
+            // Create variable for the menu item to pass in
+            var selectedItem = MenuItem()
+            
+            // Choose a menu item based on the section that the index path indicates
+            if sandwichView.backgroundColor == selectedTabColor
+            {
+                selectedItem = sandwiches[indexPath.item]
+            }
+            else if saladView.backgroundColor == selectedTabColor
+            {
+                selectedItem = salads[indexPath.item]
+            }
+            else if soupView.backgroundColor == selectedTabColor
+            {
+                selectedItem = soups[indexPath.item]
+            }
+            
+            // Pass data to the next VC
+            let nextVC = segue.destinationViewController as! LunchDetailsViewController
+            
+            nextVC.menuItem = selectedItem
+            nextVC.checkIn  = self.checkIn!
         }
-        else if saladView.backgroundColor == selectedTabColor
-        {
-            selectedItem = salads[indexPath.item]
-        }
-        else if soupView.backgroundColor == selectedTabColor
-        {
-            selectedItem = soups[indexPath.item]
-        }
-        
-        // Pass data to the next VC
-        let nextVC = segue.destinationViewController as! LunchDetailsViewController
-        
-        nextVC.menuItem = selectedItem
     }
     
 //------------------------------------------------------------------------------------------//
