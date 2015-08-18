@@ -220,7 +220,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
                     recruiter.company = companiesArray[pickerRow]
                     
                     // Post the recruiter to the DB
-                    recruiter.create()
+                    recruiter.create(nil)
                 }
                 
                 return true

@@ -54,6 +54,9 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
     // Check-In object to be passed from previous screen
     var checkIn : CheckIn?
     
+    // Lunch Order object to be passed in from next modal screen
+    var lunchOrder : LunchOrder?
+    
     // Arrays of the MenuItems
     var salads      = [MenuItem]()
     var soups       = [MenuItem]()
@@ -218,6 +221,14 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
             
             nextVC.menuItem = selectedItem
             nextVC.checkIn  = self.checkIn!
+            nextVC.delegate = self
+        }
+        else if segue.identifier == "showDessertsSelection"
+        {
+            // Set the next view controller's lunch order
+            let nextVC = segue.destinationViewController as! DessertSelectionViewController
+            
+            nextVC.lunchOrder = self.lunchOrder
         }
     }
     
@@ -378,3 +389,25 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
 //------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------//
 }
+
+//------------------------------------------------------------------------------------------//
+//---------------------------------- DELEGATE EXTENSION ------------------------------------//
+//------------------------------------------------------------------------------------------//
+
+extension LunchOptionsViewController: LunchDetailsDelegate
+{
+    func dismissLunchDetails(lunchOrder: LunchOrder?)
+    {
+        // Receive the lunchOrder object and pass it to the next modal
+        
+        println("<<<<<<<<<<<<<<< GOT INTO THE DELEGATE METHOD")
+        
+        self.lunchOrder = lunchOrder
+        
+        performSegueWithIdentifier("showDessertsSelection", sender: self)
+    }
+}
+
+//------------------------------------------------------------------------------------------//
+//------------------------------------------------------------------------------------------//
+//------------------------------------------------------------------------------------------//

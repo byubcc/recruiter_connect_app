@@ -22,7 +22,7 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
     // Variable to hold the lunch order object
     var lunchOrder : LunchOrder?
     
-    // Collection view outlet
+    // Collectionview
     @IBOutlet weak var collection: UICollectionView!
     
     // Styles
@@ -46,9 +46,6 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
         
         // Print the lunch order object to make sure that it's there
         println("<<<<<<<<<<<<<<<<<<<<<<< LUNCH ORDER OBJECT RECEIVED: \(lunchOrder)")
-
-        // Set the background of the collectionView
-        self.collection.backgroundColor = self.selectedTabColor
         
         // Retrieve the desserts from the DB
         self.retrieveDesserts()
@@ -57,8 +54,6 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
             
             // Remove the overlay
             
-            // Redraw the collection
-            self.collection.reloadData()
         }
     }
 
@@ -90,7 +85,7 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
      */
     @IBAction func cancelButtonTapped(sender: AnyObject)
     {
-        
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
 //------------------------------------------------------------------------------------------//
@@ -134,7 +129,6 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
         {
             cell.image.image = image
         }
-        
         
         return cell
     }

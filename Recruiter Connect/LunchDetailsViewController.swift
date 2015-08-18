@@ -9,12 +9,24 @@
 
 import UIKit
 
+/**
+ * Protocol for the Lunch options screen to conform to as the delegate. 
+ * This will allow this VC to dismiss itself, then call the next VC (desserts)
+ */
+protocol LunchDetailsDelegate
+{
+    func dismissLunchDetails(lunchOrder : LunchOrder?)
+}
+
 class LunchDetailsViewController: UIViewController
 {
 
 //------------------------------------------------------------------------------------------//
 //--------------------------------------- OUTLETS ------------------------------------------//
 //------------------------------------------------------------------------------------------//
+    
+    // Delegate variable
+    var delegate : LunchDetailsDelegate?
     
     // Menu item to be passed in from the previous screen
     var menuItem : MenuItem?
@@ -193,12 +205,7 @@ class LunchDetailsViewController: UIViewController
         // Dismiss this VC and call the next VC 
         self.dismissViewControllerAnimated(true)
         {
-            let ownerVC   = self.parentViewController
-            let dessertVC = DessertSelectionViewController()
-            
-            dessertVC.lunchOrder = self.lunchOrder
-            
-            ownerVC?.presentViewController(dessertVC, animated: true, completion: nil)
+            self.delegate?.dismissLunchDetails(self.lunchOrder)
         }
     }
     
