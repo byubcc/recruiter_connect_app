@@ -229,6 +229,7 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
             let nextVC = segue.destinationViewController as! DessertSelectionViewController
             
             nextVC.lunchOrder = self.lunchOrder
+            nextVC.delegate   = self
         }
     }
     
@@ -321,6 +322,7 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
     {
         // Attempt to make the GET call via Alamofire
         let endpoint = "http://recruiterconnect.byu.edu/api/menuitems/?format=json"
+        // let endpoint = "http://localhost:8000/api/menuitems/?format=json"
         
         var errorFlag = false
         
@@ -394,7 +396,7 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
 //---------------------------------- DELEGATE EXTENSION ------------------------------------//
 //------------------------------------------------------------------------------------------//
 
-extension LunchOptionsViewController: LunchDetailsDelegate
+extension LunchOptionsViewController: LunchDetailsDelegate, DessertSelectionDelegate
 {
     func dismissLunchDetails(lunchOrder: LunchOrder?)
     {
@@ -405,6 +407,14 @@ extension LunchOptionsViewController: LunchDetailsDelegate
         self.lunchOrder = lunchOrder
         
         performSegueWithIdentifier("showDessertsSelection", sender: self)
+    }
+    
+    func dismissDessertSelection()
+    {
+        // Perform the segue to the Thank You Screen
+        println("<<<<<<<<<<<<<<< GOT INTO THE DELEGATE METHOD")
+        
+        self.performSegueWithIdentifier("toThankYouScreen", sender: self)
     }
 }
 

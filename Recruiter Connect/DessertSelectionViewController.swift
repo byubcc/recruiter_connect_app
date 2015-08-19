@@ -9,12 +9,25 @@
 import UIKit
 import Alamofire
 
+/**
+ * Protocol for the Lunch Options screen to conform to as this VC's delegate. 
+ * This will allow the this VC to dismiss itself after creating the lunch order
+ * and then move to the Thank You screen from the Lunch Options menu
+ */
+protocol DessertSelectionDelegate
+{
+    func dismissDessertSelection()
+}
+
 class DessertSelectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate
 {
 
 //------------------------------------------------------------------------------------------//
 //---------------------------------------- OUTLETS -----------------------------------------//
 //------------------------------------------------------------------------------------------//
+    
+    // Variable for the delegate
+    var delegate : DessertSelectionDelegate?
     
     // Array for the desserts
     var desserts = [Dessert]()
@@ -24,6 +37,9 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
     
     // Collectionview
     @IBOutlet weak var collection: UICollectionView!
+    
+    // Holds the index path for the selected UICollectionView Cell
+    var selectedCellPath : NSIndexPath?
     
     // Styles
     let selectedTabColor = UIColor(red: 223/255, green: 223/255, blue: 225/255, alpha: 1.0)
@@ -77,7 +93,47 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
      */
     @IBAction func selectButtonTapped(sender: AnyObject)
     {
-        
+        // Validate that the user has selected a dessert
+        if let selectedPath = self.selectedCellPath
+        {
+            // Create the lunch order with the dessert option
+            self.lunchOrder?.dessert = self.desserts[selectedPath.item]
+            
+            self.lunchOrder?.create()
+            {
+                (errorFlag) in
+                
+                if errorFlag
+                {
+                    let alert = UIAlertView()
+                    
+                    alert.title   = "Network Error"
+                    alert.message = "Uh oh! Looks like the Internet isn't working! Try again in a bit!"
+                    alert.addButtonWithTitle("Try Again")
+                    
+                    alert.show()
+                }
+                else
+                {
+                    // Dismiss this VC and then call the delegate method to move to the 
+                    // Thank You screen
+                    self.dismissViewControllerAnimated(true)
+                    {
+                        self.delegate?.dismissDessertSelection()
+                    }
+                }
+            }
+        }
+        else
+        {
+            let alert = UIAlertView()
+            
+            alert.title   = "No Dessert!?"
+            alert.message = "Oops! Looks like you forgot to select a dessert!"
+            alert.addButtonWithTitle("I Guess I'll Choose One")
+            
+            alert.show()
+        }
     }
     
     /**
@@ -133,6 +189,29 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
         return cell
     }
     
+    /**
+     * Cell tapped - Change the color of the background of the cell to a selected color
+     * Then save the index of the cell so as to find the dessert later.
+     */
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
+    {
+        // First set the previous cell's background back to normal (if there was a previous)
+        if let selectedPath = self.selectedCellPath
+        {
+            collectionView.cellForItemAtIndexPath(selectedPath)?.backgroundColor = UIColor.whiteColor()
+        }
+        else
+        {
+            self.selectedCellPath = NSIndexPath()
+        }
+        
+        // Store the index path
+        self.selectedCellPath = indexPath
+        
+        // Change the background color of the cell
+        collectionView.cellForItemAtIndexPath(indexPath)?.backgroundColor = selectedTabColor
+    }
+    
 //------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------//
@@ -148,6 +227,7 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
     {
         // Attempt to make the GET call via Alamofire
         let endpoint = "http://recruiterconnect.byu.edu/api/desserts/?format=json"
+        // let endpoint = "http://localhost:8000/api/desserts/?format=json"
         
         var errorFlag = false
         

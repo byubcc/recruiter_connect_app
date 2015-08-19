@@ -67,7 +67,7 @@ class LunchOrder
         
         // Set the endpoint
         let endpoint = "http://recruiterconnect.byu.edu/api/lunchorders/"
-        // let endpoint = "localhost:8000/api/lunchorders/"
+        // let endpoint = "http://localhost:8000/api/lunchorders/"
         
         // Send the POST request via Alamofire
         Alamofire.request(.POST, endpoint, parameters: parameters as? [String : AnyObject], encoding: .JSON).responseJSON
