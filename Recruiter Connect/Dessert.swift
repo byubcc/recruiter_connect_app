@@ -39,7 +39,14 @@ class Dessert {
         
         if let photoURL = item["photo"] as? String
         {
-            self.photoURL = "http://recruiterconnect.byu.edu/media\(photoURL)"
+            if photoURL.rangeOfString("http") != nil
+            {
+                self.photoURL = "\(photoURL)"
+            }
+            else
+            {
+                self.photoURL = "http://recruiterconnect.byu.edu/media\(photoURL)"
+            }
         }
         else
         {

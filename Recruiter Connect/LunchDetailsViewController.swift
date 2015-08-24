@@ -94,6 +94,16 @@ class LunchDetailsViewController: UIViewController
             if ingredientsArray.count == 0
             {
                 self.customizeLabel.text = ""
+                
+                // Add in an Identifier letting the user know that there are no ingredients
+                // to choose from for the given item
+                let noIngredientsLabel           = UILabel()
+                noIngredientsLabel.text          = "Sorry! No ingredients to choose from for this order. What you see is what you get!"
+                noIngredientsLabel.font          = self.largerFont
+                noIngredientsLabel.numberOfLines = 3
+                noIngredientsLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
+                
+                self.ingredientsContainer.addSubview(noIngredientsLabel)
             }
             else
             {
