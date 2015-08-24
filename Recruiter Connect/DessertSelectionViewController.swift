@@ -60,6 +60,17 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
     {
         super.viewDidLoad()
         
+        // Set the button's styles
+        self.cancelButton.backgroundColor    = UIColor.clearColor()
+        self.cancelButton.layer.cornerRadius = 5
+        self.cancelButton.layer.borderWidth  = 1
+        self.cancelButton.layer.borderColor  = UIColor.darkGrayColor().CGColor
+        
+        self.selectButton.backgroundColor    = UIColor.clearColor()
+        self.selectButton.layer.cornerRadius = 5
+        self.selectButton.layer.borderWidth  = 1
+        self.selectButton.layer.borderColor  = UIColor.darkGrayColor().CGColor
+        
         // Print the lunch order object to make sure that it's there
         println("<<<<<<<<<<<<<<<<<<<<<<< LUNCH ORDER OBJECT RECEIVED: \(lunchOrder)")
         

@@ -77,7 +77,6 @@ class LunchDetailsViewController: UIViewController
         menuItemImage.image = menuItem?.photo
         
         // Set the button's styles
-        // Set the lunch buttons' styles
         self.cancelButton.backgroundColor    = UIColor.clearColor()
         self.cancelButton.layer.cornerRadius = 5
         self.cancelButton.layer.borderWidth  = 1

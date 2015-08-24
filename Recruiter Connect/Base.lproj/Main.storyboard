@@ -1508,7 +1508,7 @@
                                                     <size key="itemSize" width="315" height="125"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="menuCell" id="ato-Np-yZ8" customClass="MenuCell" customModule="Recruiter_Connect" customModuleProvider="target">
@@ -1882,7 +1882,7 @@
                                     <size key="itemSize" width="235" height="100"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="5" minY="5" maxX="5" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dessertCell" id="7zu-tU-ki2" customClass="DessertCell" customModule="Recruiter_Connect" customModuleProvider="target">
@@ -1919,12 +1919,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="anJ-Cz-CQR" firstAttribute="top" secondItem="own-aE-dkg" secondAttribute="bottom" constant="42" id="COH-SH-i8F"/>
                             <constraint firstItem="DU1-g5-7tL" firstAttribute="top" secondItem="anJ-Cz-CQR" secondAttribute="bottom" constant="8" id="EfB-ll-YRt"/>
                             <constraint firstItem="ewo-bL-CpW" firstAttribute="top" secondItem="6jm-7z-iHI" secondAttribute="bottom" constant="20" id="KtO-HC-vUh"/>
                             <constraint firstAttribute="centerX" secondItem="vfo-n0-umf" secondAttribute="centerX" constant="-87" id="LUS-iK-3Dv"/>
                             <constraint firstAttribute="trailing" secondItem="DU1-g5-7tL" secondAttribute="trailing" constant="16" id="LVH-a0-TOK"/>
                             <constraint firstAttribute="centerY" secondItem="DU1-g5-7tL" secondAttribute="centerY" id="bbo-nn-pJ5"/>
+                            <constraint firstItem="anJ-Cz-CQR" firstAttribute="top" secondItem="own-aE-dkg" secondAttribute="bottom" constant="22" id="ee2-3o-7xu"/>
                             <constraint firstAttribute="centerX" secondItem="DU1-g5-7tL" secondAttribute="centerX" id="h5V-TL-AlK"/>
                             <constraint firstItem="anJ-Cz-CQR" firstAttribute="leading" secondItem="K8H-eq-gv1" secondAttribute="leading" constant="16" id="koL-0g-Bl7"/>
                             <constraint firstAttribute="centerX" secondItem="6jm-7z-iHI" secondAttribute="centerX" constant="86" id="nr7-oH-oG2"/>
