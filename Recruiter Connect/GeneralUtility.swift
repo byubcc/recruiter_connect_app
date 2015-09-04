@@ -23,27 +23,35 @@ class GeneralUtility
      * First create the overlay and spinner, then test the network, then remove the overlay and
      * stop the progress indicator.
      */
-    class func checkNetwork(parentView : UIView, completion : ((errorFlag : Bool) -> ())?)
+    class func checkNetwork(parentView : UIView, needOverlay : Bool, needSpinner : Bool, completion : ((errorFlag : Bool) -> ())?) -> Bool
     {
-        // Size of screen
-        let screenSize : CGRect = UIScreen.mainScreen().bounds
+        // If usecase calls for overlay or spinner, create overlay and / or spinner
+        if needOverlay
+        {
+            // Size of screen
+            let screenSize : CGRect = UIScreen.mainScreen().bounds
+            
+            // Set up the screen overlay and the progress spinner
+            let overlay             = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
+            overlay.backgroundColor = UIColor(red: 223/255, green: 223/255, blue: 225/255, alpha: 0.5)
+            overlay.tag             = 100
+            
+            parentView.addSubview(overlay)
+        }
         
-        // Set up the screen overlay and the progress spinner
-        let overlay             = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
-        overlay.backgroundColor = UIColor(red: 223/255, green: 223/255, blue: 225/255, alpha: 0.5)
-        overlay.tag             = 100
-        
-        let spinner   = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
-        spinner.frame = CGRect(x: parentView.frame.midX - 25, y: parentView.frame.midY - 100, width: 50, height: 50)
-        spinner.tag   = 101
-        
-        parentView.addSubview(overlay)
-        parentView.addSubview(spinner)
+        if needSpinner
+        {
+            let spinner   = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+            spinner.frame = CGRect(x: parentView.frame.midX - 25, y: parentView.frame.midY - 100, width: 50, height: 50)
+            spinner.tag   = 101
+            
+            parentView.addSubview(spinner)
+        }
         
         // Make a network call to test the connectivity / if the REST API is available
         var errorFlag = false
         
-        let endpoint = "http://recruiterconnect.byu.edu//api/menuitems/?format=json"
+        let endpoint = "http://recruiterconnect.byu.edu/api/menuitems/?format=json"
         
         Alamofire.request(.GET, endpoint).responseJSON
         {
@@ -60,14 +68,21 @@ class GeneralUtility
                 println("<<<<<<<<<<<<<<<<<<<<<< NETWORK ERROR: \(jsonError)")
                 errorFlag = true
             }
-            else
+            
+            if needOverlay
             {
-                spinner.removeFromSuperview()
-                overlay.removeFromSuperview()
+                parentView.viewWithTag(100)?.removeFromSuperview()
+            }
+            
+            if needSpinner
+            {
+                parentView.viewWithTag(101)?.removeFromSuperview()
             }
             
             // Call the completion handler once the request is made
             completion?(errorFlag: errorFlag)
         }
+        
+        return !errorFlag
     }
 }

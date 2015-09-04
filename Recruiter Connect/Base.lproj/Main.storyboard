@@ -36,7 +36,7 @@
                                     <rect key="frame" x="48" y="178" width="307" height="44"/>
                                 </variation>
                                 <connections>
-                                    <segue destination="Kn0-fB-aFH" kind="showDetail" id="uaX-0j-xB7"/>
+                                    <segue destination="Kn0-fB-aFH" kind="showDetail" identifier="toRecruiterInfo" id="uaX-0j-xB7"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHD-xe-FES">

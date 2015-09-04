@@ -38,23 +38,21 @@ class WelcomeScreenViewController: UIViewController
         super.viewDidLoad()
 
         // Test the network connectivity as the page loads using the GeneralUtility Class
-        GeneralUtility.checkNetwork(self.mainView)
-        {
-            (errorFlag) in
-                
-            if errorFlag
-            {
-                let alert = UIAlertView()
-                
-                alert.title   = "Network error"
-                alert.message = "Please make sure you are connected to WiFi. If you are, then please try again later"
-                alert.addButtonWithTitle("OK")
-                
-                alert.show()
-                
-                self.checkInButton.hidden = true
-            }
-        }
+//        GeneralUtility.checkNetwork(self.mainView, needOverlay: false, needSpinner: false)
+//        {
+//            (errorFlag) in
+//                
+//            if errorFlag
+//            {
+//                let alert = UIAlertView()
+//                
+//                alert.title   = "Network error"
+//                alert.message = "Please make sure you are connected to WiFi. If you are, then please try again later"
+//                alert.addButtonWithTitle("OK")
+//                
+//                alert.show()
+//            }
+//        }
     }
 
     override func didReceiveMemoryWarning()
@@ -78,7 +76,26 @@ class WelcomeScreenViewController: UIViewController
     {
         
     }
-
+    
+    /**
+     * Test the network connection before moving on
+     */
+    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool
+    {
+        if identifier == "toRecruiterInfo"
+        {
+            return GeneralUtility.checkNetwork(self.mainView, needOverlay: true, needSpinner: true)
+            {
+                (errorFlag) in
+                
+                
+            }
+        }
+        else
+        {
+            return true
+        }
+    }
     
 //------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------//
