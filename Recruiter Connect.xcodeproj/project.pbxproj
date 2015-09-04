@@ -37,6 +37,7 @@
 		52F03F241AE984FA0010C407 /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F03F231AE984FA0010C407 /* CheckIn.swift */; };
 		52F03F261AE986790010C407 /* LunchOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F03F251AE986790010C407 /* LunchOrder.swift */; };
 		52F03F281AE987FE0010C407 /* SaladDressing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F03F271AE987FE0010C407 /* SaladDressing.swift */; };
+		7209963F1B9A1F11005BB4AE /* GeneralUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7209963E1B9A1F11005BB4AE /* GeneralUtility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		52F03F231AE984FA0010C407 /* CheckIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckIn.swift; sourceTree = "<group>"; };
 		52F03F251AE986790010C407 /* LunchOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LunchOrder.swift; sourceTree = "<group>"; };
 		52F03F271AE987FE0010C407 /* SaladDressing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaladDressing.swift; sourceTree = "<group>"; };
+		7209963E1B9A1F11005BB4AE /* GeneralUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralUtility.swift; sourceTree = "<group>"; };
 		8A360FE82F5B61554F04135D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FA4038CD1A0A5BBF0363B8CA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -147,6 +149,7 @@
 				520D86371ADD8E6600BADD05 /* Company.swift */,
 				524CDC2B1B79037800CF22DF /* Dessert.swift */,
 				524CDC2F1B7962ED00CF22DF /* DessertCell.swift */,
+				7209963E1B9A1F11005BB4AE /* GeneralUtility.swift */,
 				5227041F1ADF2BB70044E8C8 /* ImageLoader.swift */,
 				52E060A61B6D9FC700E2001D /* Ingredient.swift */,
 				52F03F251AE986790010C407 /* LunchOrder.swift */,
@@ -384,6 +387,7 @@
 				52BDC0FA1A7FDC6600F29C16 /* ViewController.swift in Sources */,
 				5244273B1ADECB4100B5B3A7 /* MenuCell.swift in Sources */,
 				52F03F261AE986790010C407 /* LunchOrder.swift in Sources */,
+				7209963F1B9A1F11005BB4AE /* GeneralUtility.swift in Sources */,
 				523E1A701A82926700A9BBA1 /* RecruiterInfoViewController.swift in Sources */,
 				5244273D1ADED1D100B5B3A7 /* SectionHeaderView.swift in Sources */,
 				52BDC0F81A7FDC6600F29C16 /* AppDelegate.swift in Sources */,
