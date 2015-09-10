@@ -175,11 +175,7 @@ class VehicleInfoViewController: UIViewController, UIPickerViewDataSource, UIPic
                 // go ahead and move forward
                 self.aboutToSegue()
                 {
-                    (errorFlag) in
-                    if !errorFlag
-                    {
-                        self.performSegueWithIdentifier("toLunches", sender: nil)
-                    }
+                    self.performSegueWithIdentifier("toThankYou", sender: nil)
                 }
             }
         }
@@ -212,11 +208,7 @@ class VehicleInfoViewController: UIViewController, UIPickerViewDataSource, UIPic
                 // go ahead and move forward
                 self.aboutToSegue()
                 {
-                    (errorFlag) in
-                    if !errorFlag
-                    {
-                        self.performSegueWithIdentifier("toLunches", sender: nil)
-                    }
+                    self.performSegueWithIdentifier("toLunches", sender: nil)
                 }
             }
         }
@@ -243,7 +235,7 @@ class VehicleInfoViewController: UIViewController, UIPickerViewDataSource, UIPic
     /** 
      * Check to make sure that the fields are all filled in before segue-ing
      **/
-    func aboutToSegue(completion : ((errorFlag : Bool) -> ())?)
+    func aboutToSegue(completion : (() -> ())?)
     {
         var errorFlag = false
         
@@ -288,7 +280,7 @@ class VehicleInfoViewController: UIViewController, UIPickerViewDataSource, UIPic
                             
                             if !checkInErrorFlag
                             {
-                                completion?(errorFlag: false)
+                                completion?()
                             }
                         }
                     }

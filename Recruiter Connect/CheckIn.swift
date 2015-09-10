@@ -65,6 +65,7 @@ class CheckIn
             if let JSONError = error
             {
                 println("ERROR: \(JSONError)")
+                errorFlag = true
             }
             
             // Print the data
@@ -75,6 +76,9 @@ class CheckIn
                 // Set the ID to the id returned
                 self.id = JSONData["id"] as? Int
             }
+            
+            // Call the completion handler
+            completion?(errorFlag : errorFlag)
         }
     }
     
