@@ -60,11 +60,6 @@ class GeneralUtility
         {
             (request, response, data, error) in
             
-            if let jsonData : NSArray = data as? NSArray
-            {
-                println("<<<<<<<<<<<<<<<<<<<<<< NETWORK TEST DATA: \(jsonData)")
-            }
-            
             // If there is an error, turn the boolean to false
             if let jsonError = error
             {

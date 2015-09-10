@@ -80,8 +80,6 @@ class Recruiter
             "company"    : String(self.company!.id!),
         ]
         
-        println("PARAMETERS: \(parameters)")
-        
         let endpoint = "https://recruiterconnect.byu.edu/api/recruiters/"
         // let endpoint = "http://localhost:8000/api/recruiters/"
         
@@ -89,9 +87,6 @@ class Recruiter
         Alamofire.request(.POST, endpoint, parameters: parameters, encoding: .JSON).responseJSON
         {
             (request, response, data, error) in
-                
-            println("REQUEST: \(request)")
-            println("RESPONSE: \(response)")
                 
             // if there's an error, print it
             if let JSONError = error

@@ -171,7 +171,16 @@ class VehicleInfoViewController: UIViewController, UIPickerViewDataSource, UIPic
             }
             else
             {
-                self.performSegueWithIdentifier("toThankYou", sender: nil)
+                // Double check the fields, and if everything checks out, then
+                // go ahead and move forward
+                self.aboutToSegue()
+                {
+                    (errorFlag) in
+                    if !errorFlag
+                    {
+                        self.performSegueWithIdentifier("toLunches", sender: nil)
+                    }
+                }
             }
         }
     }
@@ -201,9 +210,13 @@ class VehicleInfoViewController: UIViewController, UIPickerViewDataSource, UIPic
             {
                 // Double check the fields, and if everything checks out, then 
                 // go ahead and move forward
-                if self.aboutToSegue()
+                self.aboutToSegue()
                 {
-                    self.performSegueWithIdentifier("toLunches", sender: nil)
+                    (errorFlag) in
+                    if !errorFlag
+                    {
+                        self.performSegueWithIdentifier("toLunches", sender: nil)
+                    }
                 }
             }
         }
@@ -230,8 +243,10 @@ class VehicleInfoViewController: UIViewController, UIPickerViewDataSource, UIPic
     /** 
      * Check to make sure that the fields are all filled in before segue-ing
      **/
-    func aboutToSegue() -> Bool
+    func aboutToSegue(completion : ((errorFlag : Bool) -> ())?)
     {
+        var errorFlag = false
+        
         // Check to see if the text boxes are all full, if not alert the user
         if licensePlate.text.isEmpty || carState.text.isEmpty || make.text.isEmpty || model.text.isEmpty || color.text.isEmpty
         {
@@ -243,8 +258,6 @@ class VehicleInfoViewController: UIViewController, UIPickerViewDataSource, UIPic
             alert.addButtonWithTitle("OK")
                 
             alert.show()
-                
-            return false
         }
         else
         {
@@ -259,17 +272,28 @@ class VehicleInfoViewController: UIViewController, UIPickerViewDataSource, UIPic
                 vehicle.recruiter    = self.recruiter
                 
                 // Create the vehicle
-                vehicle.create(nil)
-                
-                // Fill in the recruiter information to the check in
-                checkIn.recruiter = self.recruiter!
-                
-                // Create the check in
-                checkIn.create(nil)
+                vehicle.create()
+                {
+                    (vehicleErrorFlag) in
+                    
+                    if !vehicleErrorFlag
+                    {
+                        // Fill in the recruiter information to the check in
+                        self.checkIn.recruiter = self.recruiter!
+                        
+                        // Create the check in
+                        self.checkIn.create()
+                        {
+                            (checkInErrorFlag) in
+                            
+                            if !checkInErrorFlag
+                            {
+                                completion?(errorFlag: false)
+                            }
+                        }
+                    }
+                }
             }
-            
-            // Proceed with the segue
-            return true
         }
     }
     

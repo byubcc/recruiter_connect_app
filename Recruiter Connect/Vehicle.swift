@@ -56,13 +56,20 @@ class Vehicle
             password = recruiterPassword
         }
         
+        let credentialData    = "\(username):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
+        let base64Credentials = credentialData.base64EncodedStringWithOptions(nil)
+        let headers = ["Authorization":"Basic \(base64Credentials)"]
+        
         let endpoint = "https://recruiterconnect.byu.edu/api/vehicles/"
         // let endpoint = "http://localhost:8000/api/vehicles/"
         
         // Send the request via AlamoFire
-        Alamofire.request(.POST, endpoint, parameters: parameters as [String : AnyObject]?, encoding: .JSON).authenticate(user: username, password: password, persistence: NSURLCredentialPersistence.ForSession).responseJSON
+        Alamofire.request(.POST, endpoint, parameters: parameters as [String : AnyObject]?, encoding: .JSON, headers: headers).responseJSON
         {
-            (_, _, data, error) in
+            (request, response, data, error) in
+            
+            println("<<<<<<<<<<<<<<<<<<<< VEHICLE REQUEST: \(request)")
+            println("<<<<<<<<<<<<<<<<<<<< VEHICLE RESPONSE: \(response)")
                 
             // If there's an error, Print it
             if let JSONError = error
