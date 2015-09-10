@@ -36,7 +36,7 @@
                                     <rect key="frame" x="48" y="178" width="307" height="44"/>
                                 </variation>
                                 <connections>
-                                    <segue destination="Kn0-fB-aFH" kind="showDetail" identifier="toRecruiterInfo" id="uaX-0j-xB7"/>
+                                    <action selector="createAccountButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GWv-Xl-B4A"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHD-xe-FES">
@@ -117,7 +117,8 @@
                     </view>
                     <connections>
                         <outlet property="checkInButton" destination="JrY-7l-dOL" id="cj3-Oz-kSW"/>
-                        <outlet property="mainView" destination="8bC-Xf-vdC" id="k4n-Qt-thc"/>
+                        <outlet property="parentView" destination="8bC-Xf-vdC" id="8bg-vu-GFv"/>
+                        <segue destination="Kn0-fB-aFH" kind="show" identifier="toRecruiterInfo" id="lbs-Ag-wqe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -2009,7 +2010,6 @@
                             <constraint firstAttribute="centerX" secondItem="vfo-n0-umf" secondAttribute="centerX" constant="-87" id="LUS-iK-3Dv"/>
                             <constraint firstAttribute="trailing" secondItem="DU1-g5-7tL" secondAttribute="trailing" constant="16" id="LVH-a0-TOK"/>
                             <constraint firstAttribute="centerY" secondItem="DU1-g5-7tL" secondAttribute="centerY" id="bbo-nn-pJ5"/>
-                            <constraint firstItem="anJ-Cz-CQR" firstAttribute="top" secondItem="own-aE-dkg" secondAttribute="bottom" constant="22" id="ee2-3o-7xu"/>
                             <constraint firstAttribute="centerX" secondItem="DU1-g5-7tL" secondAttribute="centerX" id="h5V-TL-AlK"/>
                             <constraint firstItem="anJ-Cz-CQR" firstAttribute="leading" secondItem="K8H-eq-gv1" secondAttribute="leading" constant="16" id="koL-0g-Bl7"/>
                             <constraint firstAttribute="centerX" secondItem="6jm-7z-iHI" secondAttribute="centerX" constant="86" id="nr7-oH-oG2"/>

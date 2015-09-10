@@ -23,8 +23,8 @@ class WelcomeScreenViewController: UIViewController
     @IBOutlet weak var checkInButton: UIButton!
     
     // Parent view container
-    @IBOutlet var mainView: UIView!
-    
+    @IBOutlet var parentView: UIView!
+
 //------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------//
@@ -36,23 +36,6 @@ class WelcomeScreenViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-        // Test the network connectivity as the page loads using the GeneralUtility Class
-//        GeneralUtility.checkNetwork(self.mainView, needOverlay: false, needSpinner: false)
-//        {
-//            (errorFlag) in
-//                
-//            if errorFlag
-//            {
-//                let alert = UIAlertView()
-//                
-//                alert.title   = "Network error"
-//                alert.message = "Please make sure you are connected to WiFi. If you are, then please try again later"
-//                alert.addButtonWithTitle("OK")
-//                
-//                alert.show()
-//            }
-//        }
     }
 
     override func didReceiveMemoryWarning()
@@ -79,23 +62,35 @@ class WelcomeScreenViewController: UIViewController
     
     /**
      * Test the network connection before moving on
+     * 
+     * Call the GeneralUtility's method for checking the network, and if it passes with no errors, 
+     * then perform the appropriate segue.
      */
-    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool
+    @IBAction func createAccountButtonTapped(sender: AnyObject)
     {
-        if identifier == "toRecruiterInfo"
+        // Test the network
+        GeneralUtility.checkNetwork(self.parentView, needOverlay: true, needSpinner: true)
         {
-            return GeneralUtility.checkNetwork(self.mainView, needOverlay: true, needSpinner: true)
+            (errorFlag) in
+            
+            // Let the user know the network is down right now
+            if errorFlag
             {
-                (errorFlag) in
+                let alert = UIAlertView()
                 
+                alert.title   = "Network error"
+                alert.message = "Please make sure you are connected to WiFi. If you are, then please try again later"
+                alert.addButtonWithTitle("OK")
                 
+                alert.show()
+            }
+            else
+            {
+                self.performSegueWithIdentifier("toRecruiterInfo", sender: nil)
             }
         }
-        else
-        {
-            return true
-        }
     }
+    
     
 //------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------//

@@ -23,7 +23,7 @@ class GeneralUtility
      * First create the overlay and spinner, then test the network, then remove the overlay and
      * stop the progress indicator.
      */
-    class func checkNetwork(parentView : UIView, needOverlay : Bool, needSpinner : Bool, completion : ((errorFlag : Bool) -> ())?) -> Bool
+    class func checkNetwork(parentView : UIView, needOverlay : Bool, needSpinner : Bool, completion : ((errorFlag : Bool) -> ())?)
     {
         // If usecase calls for overlay or spinner, create overlay and / or spinner
         if needOverlay
@@ -46,12 +46,15 @@ class GeneralUtility
             spinner.tag   = 101
             
             parentView.addSubview(spinner)
+            
+            // Start animating
+            spinner.startAnimating()
         }
         
         // Make a network call to test the connectivity / if the REST API is available
         var errorFlag = false
         
-        let endpoint = "http://recruiterconnect.byu.edu/api/menuitems/?format=json"
+        let endpoint = "https://recruiterconnect.byu.edu/api/menuitems/?format=json"
         
         Alamofire.request(.GET, endpoint).responseJSON
         {
@@ -82,7 +85,5 @@ class GeneralUtility
             // Call the completion handler once the request is made
             completion?(errorFlag: errorFlag)
         }
-        
-        return !errorFlag
     }
 }
