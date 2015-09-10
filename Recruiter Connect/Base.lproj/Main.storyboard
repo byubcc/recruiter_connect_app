@@ -787,15 +787,16 @@
                         <outlet property="emailField" destination="1k6-fE-iE5" id="YFZ-9n-50p"/>
                         <outlet property="firstNameField" destination="eze-f6-MzX" id="gZJ-DP-N0D"/>
                         <outlet property="lastNameField" destination="h4E-eI-26g" id="sSf-yY-bVf"/>
+                        <outlet property="parentView" destination="2Un-fb-3Qq" id="bda-cq-CMh"/>
                         <outlet property="passwordField" destination="qkw-Ns-I06" id="2LG-wd-97i"/>
                         <outlet property="phoneField" destination="dOv-OO-jLg" id="MCx-Oe-P4D"/>
+                        <segue destination="8vC-ZZ-g6R" kind="show" identifier="toVehicleInfo" id="03d-ak-V1D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oxN-UQ-fwL" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="jH2-Rd-cID">
                     <connections>
-                        <action selector="nextButtonTapped:" destination="90f-JG-iog" id="D5X-yG-ce1"/>
-                        <segue destination="8vC-ZZ-g6R" kind="show" identifier="toVehicleInfo" id="o2y-9Q-KFB"/>
+                        <action selector="nextButtonTapped:" destination="90f-JG-iog" id="GXK-rE-QVL"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -851,7 +852,7 @@
                                             </mask>
                                         </variation>
                                         <connections>
-                                            <segue destination="nJc-RB-z6V" kind="show" id="YeW-uo-gNd"/>
+                                            <action selector="noButtonTapped:" destination="8vC-ZZ-g6R" eventType="touchUpInside" id="E7B-oA-5RB"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="License Plate" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jH6-jf-ecc">
@@ -1061,7 +1062,7 @@
                                             </mask>
                                         </variation>
                                         <connections>
-                                            <segue destination="ppv-FB-geG" kind="show" identifier="toLunches" id="2ko-sY-pe9"/>
+                                            <action selector="yesButtonTapped:" destination="8vC-ZZ-g6R" eventType="touchUpInside" id="QPF-Cu-J59"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1286,7 +1287,10 @@
                         <outlet property="make" destination="RJy-ev-Jkf" id="upF-XM-8Ih"/>
                         <outlet property="model" destination="pPE-cf-F1j" id="NU1-mI-8Cq"/>
                         <outlet property="noButton" destination="zgV-0c-Kq7" id="v1R-Mh-IdL"/>
+                        <outlet property="parentView" destination="byr-aV-p58" id="IN0-Tg-Eiu"/>
                         <outlet property="yesButton" destination="bcG-NM-x5r" id="mJs-bv-dHQ"/>
+                        <segue destination="nJc-RB-z6V" kind="show" identifier="toThankYou" id="DbX-hq-GoV"/>
+                        <segue destination="ppv-FB-geG" kind="show" identifier="toLunches" id="lye-np-enp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s21-Hu-Op8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2053,6 +2057,6 @@
         <image name="nextButton" width="187" height="78"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wgS-0h-6ls"/>
+        <segue reference="DbX-hq-GoV"/>
     </inferredMetricsTieBreakers>
 </document>

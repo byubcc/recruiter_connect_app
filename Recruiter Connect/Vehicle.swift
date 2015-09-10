@@ -27,8 +27,11 @@ class Vehicle
     }
     
     // Method for CREATING a new object in the DB according to the attributes
-    func create()
+    func create(completion : ((errorFlag : Bool) -> ())?)
     {
+        // Error flag
+        var errorFlag = false
+        
         let parameters =
         [
             "license_plate" : self.licensePlate!,
@@ -39,11 +42,25 @@ class Vehicle
             "recruiter"     : String(self.recruiter!.id!)
         ]
         
-        let endpoint = "http://recruiterconnect.byu.edu/api/vehicles/"
+        // Username and Password for the call
+        var username = ""
+        var password = ""
+        
+        if let recruiterEmail = self.recruiter?.email
+        {
+            username = recruiterEmail
+        }
+        
+        if let recruiterPassword = self.recruiter?.password
+        {
+            password = recruiterPassword
+        }
+        
+        let endpoint = "https://recruiterconnect.byu.edu/api/vehicles/"
         // let endpoint = "http://localhost:8000/api/vehicles/"
         
         // Send the request via AlamoFire
-        Alamofire.request(.POST, endpoint, parameters: parameters as [String : AnyObject]?, encoding: .JSON).responseJSON
+        Alamofire.request(.POST, endpoint, parameters: parameters as [String : AnyObject]?, encoding: .JSON).authenticate(user: username, password: password, persistence: NSURLCredentialPersistence.ForSession).responseJSON
         {
             (_, _, data, error) in
                 
@@ -51,6 +68,7 @@ class Vehicle
             if let JSONError = error
             {
                 println("<<<<<<<<ERROR: \(JSONError)")
+                errorFlag = true
             }
                 
             // Print data received
@@ -61,7 +79,9 @@ class Vehicle
                 // Set the id for use later
                 self.id = JSONData["id"] as? Int
             }
-                
+            
+            // Call the optional completion
+            completion?(errorFlag : errorFlag)
         }
     }
 }

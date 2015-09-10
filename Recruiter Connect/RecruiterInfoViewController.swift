@@ -42,6 +42,8 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
     // Pickerview that will appear when the user taps on the "Company" textfield
     var picker = UIPickerView()
     
+    // Main view in the VC
+    @IBOutlet var parentView: UIView!
 //------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------//
@@ -131,8 +133,93 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    /** 
-     * Prepare for segue if it's to the Add company modal
+    /**
+     * Next button tapped - Check the network before calling the segue
+     */
+    @IBAction func nextButtonTapped(sender: AnyObject)
+    {
+        // Test the network
+        GeneralUtility.checkNetwork(self.parentView, needOverlay: true, needSpinner: true)
+        {
+            (errorFlag) in
+            
+            // Let the user know the network is down right now
+            if errorFlag
+            {
+                let alert = UIAlertView()
+                
+                alert.title   = "Network error"
+                alert.message = "Please make sure you are connected to WiFi. If you are, then please try again later"
+                alert.addButtonWithTitle("OK")
+                
+                alert.show()
+            }
+            else
+            {
+                self.performSegueWithIdentifier("toVehicleInfo", sender: nil)
+            }
+        }
+        
+        // Check to see if the textboxes are empty
+        if firstNameField.text.isEmpty || lastNameField.text.isEmpty || emailField.text.isEmpty || passwordField.text.isEmpty || confirmPasswordField.text.isEmpty || companyField.text.isEmpty || phoneField.text.isEmpty
+        {
+            // Let the user know that they need to fill in the text fields
+            let alert = UIAlertView()
+            
+            alert.title   = "Empty Fields"
+            alert.message = "Please fill in all fields on the screen before moving on."
+            alert.addButtonWithTitle("OK")
+            
+            alert.show()
+        }
+        else if passwordField.text != confirmPasswordField.text
+        {
+            // Let the user know that they need to fill in the text fields
+            let alert = UIAlertView()
+            
+            alert.title   = "Passwords Don't Match"
+            alert.message = "The text in the password and confirmation fields don't match."
+            alert.addButtonWithTitle("OK")
+            
+            alert.show()
+        }
+        else if emailField.text.rangeOfString("@") == nil || emailField.text.rangeOfString(".") == nil
+        {
+            // Let the user know that they need to fill in the text fields
+            let alert = UIAlertView()
+            
+            alert.title   = "Invalid Email"
+            alert.message = "Please enter a valid email address."
+            alert.addButtonWithTitle("OK")
+            
+            alert.show()
+        }
+        else
+        {
+            // If the recruiter object doesn't have an ID (ie. It's not created in the DB yet), create it in the db
+            // Else just move along, since the recruiter object already exists, and can be passed as is
+            if self.recruiter.id == nil
+            {
+                // Fill in the recruiter's info in the recruiter object and post it to the db
+                recruiter.firstName = firstNameField.text
+                recruiter.lastName  = lastNameField.text
+                recruiter.password  = passwordField.text
+                recruiter.email     = emailField.text
+                
+                // Get the right value from the companies array according to what
+                // picker view row is selected
+                let pickerRow = picker.selectedRowInComponent(0)
+                
+                recruiter.company = companiesArray[pickerRow]
+                
+                // Post the recruiter to the DB
+                recruiter.create(nil)
+            }
+        }
+    }
+    
+    /**
+     * Prepare for segue
      */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
@@ -247,7 +334,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
     func grabCompanies(completion:() -> Void)
     {
         // Go out and grab all of the companies from the DB
-        let endpoint = "http://recruiterconnect.byu.edu/api/companies/?format=json"
+        let endpoint = "https://recruiterconnect.byu.edu/api/companies/?format=json"
         // let endpoint = "http://localhost:8000/api/companies/?format=json"
         
         Alamofire.request(.GET, endpoint)

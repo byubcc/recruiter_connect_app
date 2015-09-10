@@ -37,6 +37,9 @@ class VehicleInfoViewController: UIViewController, UIPickerViewDataSource, UIPic
     // Delegate variable
     var delegate: VehicleInfoDelegate?
     
+    // Parent View of VC
+    @IBOutlet var parentView: UIView!
+    
     // Lunch buttons
     @IBOutlet weak var yesButton: UIButton!
     @IBOutlet weak var noButton: UIButton!
@@ -146,6 +149,67 @@ class VehicleInfoViewController: UIViewController, UIPickerViewDataSource, UIPic
 //------------------------------------------------------------------------------------------//
     
     /**
+     * No Button Tapped - Check the network first, then call the segue if connected, else let the user know
+     */
+    @IBAction func noButtonTapped(sender: AnyObject)
+    {
+        // Test the network
+        GeneralUtility.checkNetwork(self.parentView, needOverlay: true, needSpinner: true)
+        {
+            (errorFlag) in
+            
+            // Let the user know the network is down right now
+            if errorFlag
+            {
+                let alert = UIAlertView()
+                
+                alert.title   = "Network error"
+                alert.message = "Please make sure you are connected to WiFi. If you are, then please try again later"
+                alert.addButtonWithTitle("OK")
+                
+                alert.show()
+            }
+            else
+            {
+                self.performSegueWithIdentifier("toThankYou", sender: nil)
+            }
+        }
+    }
+    
+    /**
+    * Yes Button Tapped - Check the network first, then call the segue if connected, else let the user know
+    */
+    @IBAction func yesButtonTapped(sender: AnyObject)
+    {
+        // Test the network
+        GeneralUtility.checkNetwork(self.parentView, needOverlay: true, needSpinner: true)
+        {
+            (errorFlag) in
+            
+            // Let the user know the network is down right now
+            if errorFlag
+            {
+                let alert = UIAlertView()
+                
+                alert.title   = "Network error"
+                alert.message = "Please make sure you are connected to WiFi. If you are, then please try again later"
+                alert.addButtonWithTitle("OK")
+                
+                alert.show()
+            }
+            else
+            {
+                // Double check the fields, and if everything checks out, then 
+                // go ahead and move forward
+                if self.aboutToSegue()
+                {
+                    self.performSegueWithIdentifier("toLunches", sender: nil)
+                }
+            }
+        }
+    }
+    
+    /**
      * Prepare for the segue to the Duration screen by filling in the info gathered for the
      * Check In, then pass the object to the next VC
      **/
@@ -159,14 +223,14 @@ class VehicleInfoViewController: UIViewController, UIPickerViewDataSource, UIPic
             
             // Set the delegate
             destination.delegate = self
-            destination.checkIn = self.checkIn
+            destination.checkIn  = self.checkIn
         }
     }
     
     /** 
      * Check to make sure that the fields are all filled in before segue-ing
      **/
-    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool
+    func aboutToSegue() -> Bool
     {
         // Check to see if the text boxes are all full, if not alert the user
         if licensePlate.text.isEmpty || carState.text.isEmpty || make.text.isEmpty || model.text.isEmpty || color.text.isEmpty
@@ -195,19 +259,18 @@ class VehicleInfoViewController: UIViewController, UIPickerViewDataSource, UIPic
                 vehicle.recruiter    = self.recruiter
                 
                 // Create the vehicle
-                vehicle.create()
+                vehicle.create(nil)
                 
                 // Fill in the recruiter information to the check in
                 checkIn.recruiter = self.recruiter!
                 
                 // Create the check in
-                checkIn.create()
+                checkIn.create(nil)
             }
             
             // Proceed with the segue
             return true
         }
-        
     }
     
     /**

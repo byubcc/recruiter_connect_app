@@ -13,24 +13,21 @@ import Alamofire
 class Recruiter
 {
     // Properties
-    var id: Int?
-    var company: Company?
-    var password: String?
-    var firstName: String?
-    var lastName: String?
-    var email: String?
-    var photo: String?
-    let groups = "4"
+    var id        : Int?
+    var company   : Company?
+    var password  : String?
+    var firstName : String?
+    var lastName  : String?
+    var email     : String?
+    var photo     : String?
+    let groups    = "4"
     
     /**
      * Default Initializer
      */
     init()
     {
-        self.password = "Derikismyfavorite1"
-        self.firstName = "John"
-        self.lastName = "Doe"
-        self.email = "recruitersupport9@byu.edu"
+        
     }
     
     /**
@@ -85,7 +82,7 @@ class Recruiter
         
         println("PARAMETERS: \(parameters)")
         
-        let endpoint = "http://recruiterconnect.byu.edu/api/recruiters/"
+        let endpoint = "https://recruiterconnect.byu.edu/api/recruiters/"
         // let endpoint = "http://localhost:8000/api/recruiters/"
         
         // Send the request via Alamofire

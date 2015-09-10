@@ -24,19 +24,36 @@ class CheckIn
 
     // Method for CREATING a new object in the DB according to 
     // attributes of this object
-    func create()
+    func create(completion : ((errorFlag : Bool) -> ())?)
     {
+        // Error flag
+        var errorFlag = false
+        
+        // Username and Password for the call
+        var username = ""
+        var password = ""
+        
+        if let recruiterEmail = self.recruiter?.email
+        {
+            username = recruiterEmail
+        }
+        
+        if let recruiterPassword = self.recruiter?.password
+        {
+            password = recruiterPassword
+        }
+        
         // Create the parameters in the correct format
         let parameters =
         [
             "recruiter": "\(self.recruiter!.id!)"
         ]
         
-        let endpoint = "http://recruiterconnect.byu.edu/api/checkins/"
+        let endpoint = "https://recruiterconnect.byu.edu/api/checkins/"
         // let endpoint = "http://localhost:8000/api/checkins/"
         
         // Send the request via AlamoFire
-        Alamofire.request(.POST, endpoint, parameters: parameters as [String : AnyObject]?, encoding: .JSON).responseJSON
+        Alamofire.request(.POST, endpoint, parameters: parameters as [String : AnyObject]?, encoding: .JSON).authenticate(user: username, password: password, persistence: NSURLCredentialPersistence.ForSession).responseJSON
         {
             (request, response, data, error) in
             

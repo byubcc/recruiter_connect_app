@@ -41,7 +41,7 @@ class DurationAndLunchViewController: UIViewController, UIPickerViewDataSource, 
     {
         // No matter if the user is going to eat or not, the checkIn object is finished, 
         // so send it to the DB.
-        checkIn!.create()
+        checkIn!.create(nil)
     }
     
     // Before any segue, make sure that the user has selected the a value for number of days
