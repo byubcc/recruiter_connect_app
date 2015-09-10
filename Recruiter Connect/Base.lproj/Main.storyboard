@@ -1693,21 +1693,11 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="marriotSchoolLogo" translatesAutoresizingMaskIntoConstraints="NO" id="vje-DA-w2K">
                                 <rect key="frame" x="16" y="442" width="250" height="260"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="olt-NI-2g2">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" red="0.87450980389999999" green="0.87450980389999999" blue="0.88235294119999996" alpha="0.5" colorSpace="calibratedRGB"/>
-                            </view>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ddh-8F-R2u">
-                                <rect key="frame" x="282" y="282" width="37" height="37"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="olt-NI-2g2" firstAttribute="top" secondItem="NVX-Wg-1Bq" secondAttribute="top" id="3PX-ac-v2Z"/>
                             <constraint firstAttribute="centerY" secondItem="vje-DA-w2K" secondAttribute="centerY" constant="-272" id="3qu-WR-22N"/>
                             <constraint firstItem="vDz-fp-Hy9" firstAttribute="leading" secondItem="NVX-Wg-1Bq" secondAttribute="leading" constant="-1" id="86v-kl-m5d"/>
-                            <constraint firstAttribute="centerY" secondItem="ddh-8F-R2u" secondAttribute="centerY" id="Bgy-Yy-YCW"/>
-                            <constraint firstItem="olt-NI-2g2" firstAttribute="leading" secondItem="NVX-Wg-1Bq" secondAttribute="leading" id="Hqw-c1-CAO"/>
                             <constraint firstAttribute="trailing" secondItem="vDz-fp-Hy9" secondAttribute="trailing" id="K1t-Eb-McU"/>
                             <constraint firstItem="bWh-9g-uOO" firstAttribute="top" secondItem="vDz-fp-Hy9" secondAttribute="bottom" id="Ptk-xc-DaV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Poi-nE-dXj" secondAttribute="trailing" constant="99" id="SeW-Pi-p1l">
@@ -1715,7 +1705,6 @@
                             </constraint>
                             <constraint firstItem="bWh-9g-uOO" firstAttribute="top" secondItem="vje-DA-w2K" secondAttribute="bottom" constant="-143" id="TL1-LR-l9H"/>
                             <constraint firstAttribute="centerX" secondItem="Poi-nE-dXj" secondAttribute="centerX" id="VBZ-ze-3UO"/>
-                            <constraint firstItem="bWh-9g-uOO" firstAttribute="top" secondItem="olt-NI-2g2" secondAttribute="bottom" id="XvZ-dj-Hu1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Poi-nE-dXj" secondAttribute="trailing" constant="-1" id="c1c-sa-Cg7"/>
                             <constraint firstItem="vDz-fp-Hy9" firstAttribute="top" secondItem="NVX-Wg-1Bq" secondAttribute="top" id="dHB-hD-cId"/>
                             <constraint firstItem="vje-DA-w2K" firstAttribute="width" secondItem="vje-DA-w2K" secondAttribute="height" multiplier="25:26" id="fRN-Mn-VWJ">
@@ -1723,13 +1712,11 @@
                             </constraint>
                             <constraint firstItem="vje-DA-w2K" firstAttribute="leading" secondItem="NVX-Wg-1Bq" secondAttribute="leading" constant="16" id="fiQ-Dy-wKq"/>
                             <constraint firstItem="Poi-nE-dXj" firstAttribute="leading" secondItem="NVX-Wg-1Bq" secondAttribute="leadingMargin" constant="-1" id="giZ-sX-oBL"/>
-                            <constraint firstAttribute="trailing" secondItem="olt-NI-2g2" secondAttribute="trailing" id="kHm-39-hCg"/>
                             <constraint firstItem="Poi-nE-dXj" firstAttribute="leading" secondItem="NVX-Wg-1Bq" secondAttribute="leadingMargin" constant="99" id="sJo-aq-VWD">
                                 <variation key="heightClass=regular-widthClass=regular" constant="34"/>
                             </constraint>
                             <constraint firstAttribute="width" secondItem="vje-DA-w2K" secondAttribute="height" multiplier="400:173" id="seM-Tv-j9u"/>
                             <constraint firstAttribute="width" secondItem="vje-DA-w2K" secondAttribute="height" multiplier="30:13" id="xVq-5k-02X"/>
-                            <constraint firstAttribute="centerX" secondItem="ddh-8F-R2u" secondAttribute="centerX" id="yR4-Uy-c9j"/>
                             <constraint firstAttribute="centerY" secondItem="Poi-nE-dXj" secondAttribute="centerY" constant="-0.5" id="yWt-cL-oG5"/>
                         </constraints>
                         <variation key="default">
@@ -1761,9 +1748,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Lunch Options" id="v0O-Cn-CgP"/>
                     <connections>
-                        <outlet property="blankCoverView" destination="olt-NI-2g2" id="SPE-Kl-PX2"/>
                         <outlet property="collection" destination="WoY-Ly-Lkp" id="Nfh-qK-1z2"/>
-                        <outlet property="progressSpinner" destination="ddh-8F-R2u" id="UTs-m8-Oic"/>
+                        <outlet property="parentView" destination="NVX-Wg-1Bq" id="mMm-EN-EOh"/>
                         <outlet property="saladView" destination="2Nj-25-FeD" id="sYW-2J-VSj"/>
                         <outlet property="sandwichView" destination="Trs-nZ-ftB" id="Kmv-ZP-HYT"/>
                         <outlet property="soupView" destination="hJN-Av-dVV" id="cp5-ww-eqC"/>
@@ -2057,6 +2043,6 @@
         <image name="nextButton" width="187" height="78"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DbX-hq-GoV"/>
+        <segue reference="wgS-0h-6ls"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -39,14 +39,13 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
     // Outlet for the Collection View
     @IBOutlet weak var collection: UICollectionView!
     
-    // Outlets for the items that are covering the UI before the network call completes
-    @IBOutlet weak var blankCoverView: UIView!
-    @IBOutlet weak var progressSpinner: UIActivityIndicatorView!
-    
     // Outlets for the different views that are selected
     @IBOutlet weak var sandwichView: UIView!
     @IBOutlet weak var saladView: UIView!
     @IBOutlet weak var soupView: UIView!
+    
+    // Parent View
+    @IBOutlet var parentView: UIView!
     
     // Color of the background to use in changing the tab background
     let selectedTabColor = UIColor(red: 223/255, green: 223/255, blue: 225/255, alpha: 1.0)
@@ -110,9 +109,9 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
             }
             else
             {
-                // When done move the overlay
-                self.blankCoverView.hidden = true
-                self.progressSpinner.stopAnimating()
+                // Remove the overlay and spinner
+                self.parentView.viewWithTag(100)?.removeFromSuperview()
+                self.parentView.viewWithTag(101)?.removeFromSuperview()
                 
                 // Redraw the collection based on what was brough in from REST call
                 self.collection.reloadData()
@@ -320,8 +319,28 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
      */
     func retrieveFoodItems(completion: (Bool) -> Void)
     {
+        // First set up a loading overlay and spinner
+        // Size of screen
+        let screenSize : CGRect = UIScreen.mainScreen().bounds
+        
+        // Set up the screen overlay and the progress spinner
+        let overlay             = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
+        overlay.backgroundColor = UIColor(red: 223/255, green: 223/255, blue: 225/255, alpha: 0.5)
+        overlay.tag             = 100
+        
+        self.parentView.addSubview(overlay)
+        
+        let spinner   = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+        spinner.frame = CGRect(x: self.parentView.frame.midX - 25, y: self.parentView.frame.midY - 100, width: 50, height: 50)
+        spinner.tag   = 101
+        
+        self.parentView.addSubview(spinner)
+        
+        // Start animating
+        spinner.startAnimating()
+        
         // Attempt to make the GET call via Alamofire
-        let endpoint = "http://recruiterconnect.byu.edu/api/menuitems/?format=json"
+        let endpoint = "https://recruiterconnect.byu.edu/api/menuitems/?format=json"
         // let endpoint = "http://localhost:8000/api/menuitems/?format=json"
         
         var errorFlag = false
