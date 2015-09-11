@@ -1621,7 +1621,6 @@
                                                         <connections>
                                                             <outlet property="image" destination="W5a-Pc-Kmf" id="lhA-qy-c1H"/>
                                                             <outlet property="label" destination="EtB-JT-MiR" id="tJY-Ry-gOb"/>
-                                                            <segue destination="u6Z-Ij-Nld" kind="presentation" identifier="showLunchDetails" modalPresentationStyle="formSheet" id="ujr-75-DxO"/>
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
@@ -1755,6 +1754,7 @@
                         <outlet property="soupView" destination="hJN-Av-dVV" id="cp5-ww-eqC"/>
                         <segue destination="See-FJ-gvG" kind="presentation" identifier="showDessertsSelection" modalPresentationStyle="formSheet" id="Jc1-8b-DXI"/>
                         <segue destination="nJc-RB-z6V" kind="show" identifier="toThankYouScreen" id="wgS-0h-6ls"/>
+                        <segue destination="u6Z-Ij-Nld" kind="presentation" identifier="showLunchDetails" modalPresentationStyle="formSheet" id="jFR-3y-NZp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LlA-9u-3Lf" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -195,8 +195,8 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
     {
         if segue.identifier == "showLunchDetails"
         {
-            // Get the index path from the collection according to what was selected
-            let indexPath: NSIndexPath = self.collection.indexPathForCell(sender as! UICollectionViewCell)!
+            // Get the index path from the sender that was passed in
+            let indexPath: NSIndexPath = sender as! NSIndexPath
             
             // Create variable for the menu item to pass in
             var selectedItem = MenuItem()
@@ -304,6 +304,36 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
         }
         
         return cell
+    }
+    
+    /**
+     * Function for when lunch item is tapped - checks the network connection first
+     * If it's there, perform the segue
+     */
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
+    {
+        // Test the network
+        GeneralUtility.checkNetwork(self.parentView, needOverlay: true, needSpinner: true)
+        {
+            (errorFlag) in
+            
+            // Let the user know the network is down right now
+            if errorFlag
+            {
+                let alert = UIAlertView()
+                
+                alert.title   = "Network error"
+                alert.message = "Please make sure you are connected to WiFi. If you are, then please try again later"
+                alert.addButtonWithTitle("OK")
+                
+                alert.show()
+            }
+            else
+            {
+                // Call the segue and pass the index path
+                self.performSegueWithIdentifier("showLunchDetails", sender: indexPath)
+            }
+        }
     }
     
 //------------------------------------------------------------------------------------------//

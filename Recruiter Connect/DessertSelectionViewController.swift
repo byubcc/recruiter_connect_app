@@ -71,9 +71,6 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
         self.selectButton.layer.borderWidth  = 1
         self.selectButton.layer.borderColor  = UIColor.darkGrayColor().CGColor
         
-        // Print the lunch order object to make sure that it's there
-        println("<<<<<<<<<<<<<<<<<<<<<<< LUNCH ORDER OBJECT RECEIVED: \(lunchOrder)")
-        
         // Retrieve the desserts from the DB
         self.retrieveDesserts()
         {
@@ -112,17 +109,22 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
             
             self.lunchOrder?.create()
             {
-                (errorFlag) in
+                (errorFlag, alert) in
                 
                 if errorFlag
                 {
-                    let alert = UIAlertView()
-                    
-                    alert.title   = "Network Error"
-                    alert.message = "Uh oh! Looks like the Internet isn't working! Try again in a bit!"
-                    alert.addButtonWithTitle("Try Again")
-                    
-                    alert.show()
+                    if alert.title != ""
+                    {
+                        alert.show()
+                    }
+                    else
+                    {
+                        alert.title   = "Network Issue"
+                        alert.message = "Oops! Looks like we're experiencing some technical issues. Please try again later!"
+                        alert.addButtonWithTitle("OK")
+                        
+                        alert.show()
+                    }
                 }
                 else
                 {
@@ -237,7 +239,7 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
     func retrieveDesserts(completion: ((Bool) -> Void)?)
     {
         // Attempt to make the GET call via Alamofire
-        let endpoint = "http://recruiterconnect.byu.edu/api/desserts/?format=json"
+        let endpoint = "https://recruiterconnect.byu.edu/api/desserts/?format=json"
         // let endpoint = "http://localhost:8000/api/desserts/?format=json"
         
         var errorFlag = false

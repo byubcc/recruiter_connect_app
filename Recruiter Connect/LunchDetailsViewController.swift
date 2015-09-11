@@ -191,30 +191,49 @@ class LunchDetailsViewController: UIViewController
      */
     @IBAction func selectButtonTapped(sender: AnyObject)
     {
-        // Initialize the lunch order object and associate it with the info from the user
-        self.lunchOrder = LunchOrder()
-        
-        self.lunchOrder?.menuItem    = self.menuItem!
-        self.lunchOrder?.checkIn     = self.checkIn!
-        self.lunchOrder?.ingredients = [Ingredient]()
-        
-        // Get the ingredients if there are any, and determine which ones to add from which ones are 
-        // actually selected
-        if let ingredientsArray = self.menuItem?.ingredients
+        // First test the network
+        GeneralUtility.checkNetwork(nil, needOverlay: false, needSpinner: false)
         {
-            for (index, ingredientSwitch) in enumerate(ingredientSwitchArray)
+            (errorFlag) in
+            
+            if errorFlag
             {
-                if ingredientSwitch.on
+                let alert = UIAlertView()
+                
+                alert.title   = "Network error"
+                alert.message = "Please make sure you are connected to WiFi. If you are, then please try again later"
+                alert.addButtonWithTitle("OK")
+                
+                alert.show()
+            }
+            else
+            {
+                // Initialize the lunch order object and associate it with the info from the user
+                self.lunchOrder = LunchOrder()
+                
+                self.lunchOrder?.menuItem    = self.menuItem!
+                self.lunchOrder?.checkIn     = self.checkIn!
+                self.lunchOrder?.ingredients = [Ingredient]()
+                
+                // Get the ingredients if there are any, and determine which ones to add from which ones are
+                // actually selected
+                if let ingredientsArray = self.menuItem?.ingredients
                 {
-                    self.lunchOrder?.ingredients?.append(ingredientsArray[index])
+                    for (index, ingredientSwitch) in enumerate(self.ingredientSwitchArray)
+                    {
+                        if ingredientSwitch.on
+                        {
+                            self.lunchOrder?.ingredients?.append(ingredientsArray[index])
+                        }
+                    }
+                }
+                
+                // Dismiss this VC and call the next VC
+                self.dismissViewControllerAnimated(true)
+                    {
+                        self.delegate?.dismissLunchDetails(self.lunchOrder)
                 }
             }
-        }
-        
-        // Dismiss this VC and call the next VC 
-        self.dismissViewControllerAnimated(true)
-        {
-            self.delegate?.dismissLunchDetails(self.lunchOrder)
         }
     }
     

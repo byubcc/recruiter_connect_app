@@ -45,12 +45,12 @@ class Dessert {
             }
             else
             {
-                self.photoURL = "http://recruiterconnect.byu.edu/media\(photoURL)"
+                self.photoURL = "https://recruiterconnect.byu.edu/media\(photoURL)"
             }
         }
         else
         {
-            self.photoURL = "http://recruiterconnect.byu.edu/media/utility_images/not-available.png"
+            self.photoURL = "https://recruiterconnect.byu.edu/media/utility_images/not-available.png"
         }
     }
     

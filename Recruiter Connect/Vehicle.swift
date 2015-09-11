@@ -67,9 +67,6 @@ class Vehicle
         Alamofire.request(.POST, endpoint, parameters: parameters as [String : AnyObject]?, encoding: .JSON, headers: headers).responseJSON
         {
             (request, response, data, error) in
-            
-            println("<<<<<<<<<<<<<<<<<<<< VEHICLE REQUEST: \(request)")
-            println("<<<<<<<<<<<<<<<<<<<< VEHICLE RESPONSE: \(response)")
                 
             // If there's an error, Print it
             if let JSONError = error

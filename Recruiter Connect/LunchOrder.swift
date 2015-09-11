@@ -9,6 +9,7 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
 class LunchOrder
 {
@@ -31,10 +32,11 @@ class LunchOrder
     /**
      * Function to create lunch order in DB
      */
-    func create(completion: ((errorFlag : Bool) -> ())?)
+    func create(completion: ((errorFlag : Bool, alert : UIAlertView) -> ())?)
     {
-        // Error flag variable
+        // Error flag variable and message
         var errorFlag = false
+        let alert     = UIAlertView()
         
         // First get the ingredients based on the array of ingredients
         var ingredientsJSON = [String]()
@@ -65,8 +67,26 @@ class LunchOrder
             "check_in"       : String(self.checkIn!.id!)
         ]
         
+        // Username and Password for the call
+        var username = ""
+        var password = ""
+        
+        if let recruiterEmail = self.checkIn?.recruiter?.email
+        {
+            username = recruiterEmail
+        }
+        
+        if let recruiterPassword = self.checkIn?.recruiter?.password
+        {
+            password = recruiterPassword
+        }
+        
+        let credentialData    = "\(username):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
+        let base64Credentials = credentialData.base64EncodedStringWithOptions(nil)
+        let headers           = ["Authorization":"Basic \(base64Credentials)"]
+        
         // Set the endpoint
-        let endpoint = "http://recruiterconnect.byu.edu/api/lunchorders/"
+        let endpoint = "https://recruiterconnect.byu.edu/api/lunchorders/"
         // let endpoint = "http://localhost:8000/api/lunchorders/"
         
         // Send the POST request via Alamofire
@@ -86,12 +106,31 @@ class LunchOrder
             {
                 println("<<<<<<<<<< LUNCH ORDER DATA: \(JSON)")
                 
-                // Set the ID
-                self.id = JSON["id"] as? Int
+                // Check that there's no authentication issues
+                // If there is a key in the dictionary called "Detail" then there might be 
+                // authentication issues
+                if JSON.valueForKey("detail") != nil
+                {
+                    if JSON["detail"]!.lowercaseString.rangeOfString("Authentication credentials were not provided") != nil
+                    {
+                        errorFlag = true
+                        
+                        let alert = UIAlertView()
+                        
+                        alert.title   = "Authentication Problem"
+                        alert.message = "Oops! Looks like something went wrong with your login credentials. Please re-login and start over!"
+                        alert.addButtonWithTitle("OK")
+                    }
+                }
+                else
+                {
+                    // Set the ID
+                    self.id = JSON["id"] as? Int
+                }
             }
             
             // Call the completion handler
-            completion?(errorFlag: errorFlag)
+            completion?(errorFlag: errorFlag, alert : alert)
         }
     }
 }
