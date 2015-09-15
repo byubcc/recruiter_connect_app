@@ -85,12 +85,15 @@ class LunchOrder
         let base64Credentials = credentialData.base64EncodedStringWithOptions(nil)
         let headers           = ["Authorization":"Basic \(base64Credentials)"]
         
+        // Print the credentials
+        println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< LUNCH ORDER CREDENTIALS: \(username) : \(password)")
+        
         // Set the endpoint
         let endpoint = "https://recruiterconnect.byu.edu/api/lunchorders/"
         // let endpoint = "http://localhost:8000/api/lunchorders/"
         
         // Send the POST request via Alamofire
-        Alamofire.request(.POST, endpoint, parameters: parameters as? [String : AnyObject], encoding: .JSON).responseJSON
+        Alamofire.request(.POST, endpoint, parameters: parameters as? [String : AnyObject], encoding: .JSON, headers : headers).responseJSON
         {
             (request, response, data, error) in
             
