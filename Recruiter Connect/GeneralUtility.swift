@@ -85,4 +85,39 @@ class GeneralUtility
             completion?(errorFlag: errorFlag)
         }
     }
+    
+    /**
+     * Class method for authenticating a recruiter
+     */
+    class func authenticateRecruiter(username : String, password : String, completion : ((errorFlag : Bool) -> ())?)
+    {
+        // Error flag
+        var errorFlag = false
+        
+        // Set up the endpoint
+        let endpoint = "https://recruiterconnect.byu.edu/api/"
+        //let endpoint = "http:localhost:8000/api/"
+        
+        // Hit the server
+        Alamofire.request(.GET, endpoint, parameters: nil, encoding: .JSON, headers: nil).authenticate(user: username, password: password, persistence: .None).responseJSON()
+        {
+            (request, response, data, error) in
+            
+            // If there's an error, print it out and set the errorflag
+            if let jsonError = error
+            {
+                println("<<<<<<<<<< LOG IN ERROR: \(jsonError)")
+                
+                errorFlag = true
+            }
+            
+            // Print the data
+            if let jsonData : NSDictionary = data as? NSDictionary
+            {
+                println("<<<<<<<<<< LOG IN DATA: \(jsonData)")
+            }
+            
+            completion?(errorFlag : errorFlag)
+        }
+    }
 }

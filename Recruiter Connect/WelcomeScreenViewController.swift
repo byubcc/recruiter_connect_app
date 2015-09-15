@@ -22,6 +22,9 @@ class WelcomeScreenViewController: UIViewController
     // Check In Button
     @IBOutlet weak var checkInButton: UIButton!
     
+    // Log In Button
+    @IBOutlet weak var logInButton: UIButton!
+    
     // Parent view container
     @IBOutlet var parentView: UIView!
 
@@ -36,6 +39,9 @@ class WelcomeScreenViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        // ONLY FOR NOW!! Hide the log in button
+        self.logInButton.hidden = true
     }
 
     override func didReceiveMemoryWarning()
