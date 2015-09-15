@@ -1788,20 +1788,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu Item Name Goes Here" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="0gq-lo-nuZ">
-                                <rect key="frame" x="16" y="0.0" width="198" height="241"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="0gq-lo-nuZ" secondAttribute="height" multiplier="5:6" id="vEG-43-NWX"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="37"/>
-                                <color key="textColor" red="0.30588235294117649" green="0.42352941176470588" blue="0.63921568627450975" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="vEG-43-NWX"/>
-                                    </mask>
-                                </variation>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gqc-3S-z6A" userLabel="IngredientsView">
                                 <rect key="frame" x="16" y="286" width="568" height="225"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1858,6 +1844,20 @@
                                     <action selector="selectButtonTapped:" destination="u6Z-Ij-Nld" eventType="touchUpInside" id="0PP-Uu-Eo3"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu Item Name Goes Here" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="0gq-lo-nuZ">
+                                <rect key="frame" x="16" y="0.0" width="198" height="241"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="0gq-lo-nuZ" secondAttribute="height" multiplier="5:6" id="vEG-43-NWX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="30"/>
+                                <color key="textColor" red="0.30588235294117649" green="0.42352941176470588" blue="0.63921568627450975" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="vEG-43-NWX"/>
+                                    </mask>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
