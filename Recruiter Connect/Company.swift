@@ -13,8 +13,8 @@ import Alamofire
 class Company {
     
     // Properties
-    var id: Int?
-    var name: String?
+    var id   : Int?
+    var name : String?
     
     // Default initializer
     init()
@@ -53,7 +53,7 @@ class Company {
             "name": self.name!
         ]
         
-        let endpoint = "http://recruiterconnect.byu.edu/api/companies/"
+        let endpoint = "https://recruiterconnect.byu.edu/api/companies/"
         // let endpoint = "http://localhost:8000/api/companies/"
         
         // Send the request via Alamofire
