@@ -52,7 +52,7 @@ class CompanyInfoViewController: UIViewController
     {
         // First make sure that the textbox is filled in
         // If not, don't do anything
-        if companyName.text.isEmpty == false
+        if companyName.text!.isEmpty == false
         {
             // Create a new Company object based on the name entered
             let company = Company()
@@ -68,16 +68,6 @@ class CompanyInfoViewController: UIViewController
             })
         }
     }
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
     
 //------------------------------------------------------------------------------------------//
 //------------------------------------ SYSTEM FUNCTIONS ------------------------------------//
