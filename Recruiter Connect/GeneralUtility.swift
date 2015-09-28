@@ -89,17 +89,24 @@ class GeneralUtility
     /**
      * Class method for authenticating a recruiter
      */
-    class func authenticateRecruiter(username : String, password : String, completion : ((errorFlag : Bool) -> ())?)
+    class func authenticateRecruiter(username : String, password : String, completion : ((errorFlag : Bool, recruiter : Recruiter) -> ())?)
     {
         // Error flag
         var errorFlag = false
         
+        // Recruiter to pass back
+        var recruiter = Recruiter()
+        
         // Set up the endpoint
-        let endpoint = "https://recruiterconnect.byu.edu/api/"
+        let endpoint = "https://recruiterconnect.byu.edu/api/login.authenticate/"
         //let endpoint = "http:localhost:8000/api/"
         
+        let credentialData    = "\(username):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
+        let base64Credentials = credentialData.base64EncodedStringWithOptions(nil)
+        let headers           = ["Authorization":"Basic \(base64Credentials)"]
+        
         // Hit the server
-        Alamofire.request(.GET, endpoint, parameters: nil, encoding: .JSON, headers: nil).authenticate(user: username, password: password, persistence: .None).responseJSON()
+        Alamofire.request(.GET, endpoint, parameters: nil, encoding: .JSON, headers: headers).responseJSON()
         {
             (request, response, data, error) in
             
@@ -111,13 +118,33 @@ class GeneralUtility
                 errorFlag = true
             }
             
+            if let authResponse = response
+            {
+                println("<<<<<<<<<<<<<<<<<<< LOG IN RESPONSE: \(authResponse)")
+            }
+            
             // Print the data
             if let jsonData : NSDictionary = data as? NSDictionary
             {
                 println("<<<<<<<<<< LOG IN DATA: \(jsonData)")
+                
+                if jsonData["detail"] != nil
+                {
+                    errorFlag = true
+                    
+                    let alert = UIAlertView()
+                    
+                    alert.title   = "Authentication Problem"
+                    alert.message = "Oops! Looks like something went wrong with your login credentials. Please re-login and start over!"
+                    alert.addButtonWithTitle("OK")
+                }
+                else
+                {
+                    println("AUTHENTICATION WORKED!!!!!!")
+                }
             }
             
-            completion?(errorFlag : errorFlag)
+            completion?(errorFlag : errorFlag, recruiter : recruiter)
         }
     }
 }

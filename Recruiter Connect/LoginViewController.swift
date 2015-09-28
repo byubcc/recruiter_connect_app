@@ -109,7 +109,7 @@ class LoginViewController: UIViewController
                     // Log them in
                     GeneralUtility.authenticateRecruiter(self.emailField.text, password: self.passwordField.text)
                     {
-                        (errorFlag) in
+                        (errorFlag, recruiter) in
                         
                         // If there's an error, set up an alert
                         if errorFlag
@@ -125,6 +125,7 @@ class LoginViewController: UIViewController
                         }
                         else
                         {
+                            //create a recruiter object (or serializer)
                             self.dismiss(self)
                         }
                     }
