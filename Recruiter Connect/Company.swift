@@ -42,7 +42,7 @@ class Company {
     }
     
     // Method to create new Company in DB
-    func create(completion: () -> Void)
+    func create(completion: (errorFlag : Bool) -> Void)
     {
         // Variable for the error flag
         var errorFlag = false
@@ -59,26 +59,26 @@ class Company {
         // Send the request via Alamofire
         Alamofire.request(.POST, endpoint, parameters: parameters, encoding: .JSON).responseJSON
         {
-            (request, response, data, error) in
+            request, response, result in
                 
-            println("RESPONSE: \(response)")
-            println("REQUEST: \(request)")
+            print("RESPONSE: \(response)")
+            print("REQUEST: \(request)")
                 
             // If there's an error, print it
-            if let JSONError = error
+            if let JSONError = result.error
             {
-                println("ERROR: \(JSONError)")
+                print("ERROR: \(JSONError)")
                     
                 errorFlag = true
             }
                 
             // Print the data
-            if let JSONData: NSDictionary = data as? NSDictionary
+            if let JSONData: NSDictionary = result.value as? NSDictionary
             {
-                println("<<<<<<<<<< COMPANY DATA: \(JSONData)")
+                print("<<<<<<<<<< COMPANY DATA: \(JSONData)")
                     
                 // Call the completion handler
-                completion()
+                completion(errorFlag: errorFlag)
             }
         }
     }

@@ -161,7 +161,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
         }
         
         // Check to see if the textboxes are empty
-        if firstNameField.text.isEmpty || lastNameField.text.isEmpty || emailField.text.isEmpty || passwordField.text.isEmpty || confirmPasswordField.text.isEmpty || companyField.text.isEmpty || phoneField.text.isEmpty
+        if firstNameField.text!.isEmpty || lastNameField.text!.isEmpty || emailField.text!.isEmpty || passwordField.text!.isEmpty || confirmPasswordField.text!.isEmpty || companyField.text!.isEmpty || phoneField.text!.isEmpty
         {
             // Let the user know that they need to fill in the text fields
             let alert = UIAlertView()
@@ -183,7 +183,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
             
             alert.show()
         }
-        else if emailField.text.rangeOfString("@") == nil || emailField.text.rangeOfString(".") == nil
+        else if emailField.text!.rangeOfString("@") == nil || emailField.text!.rangeOfString(".") == nil
         {
             // Let the user know that they need to fill in the text fields
             let alert = UIAlertView()
@@ -227,14 +227,14 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
         if segue.identifier == "addCompanySegue"
         {
             // Set self as the delegate for the destination
-            var destination      = segue.destinationViewController as! CompanyInfoViewController
+            let destination      = segue.destinationViewController as! CompanyInfoViewController
             destination.delegate = self
         }
         else if segue.identifier == "toVehicleInfo"
         {
             // Set the destination as the next VC, and set that destination delegate as this controller
             // Send the recruiter object to the next screen to be added to the check in
-            var destination       = segue.destinationViewController as! VehicleInfoViewController
+            let destination       = segue.destinationViewController as! VehicleInfoViewController
             destination.delegate  = self
             destination.recruiter = self.recruiter
         }
@@ -243,13 +243,13 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
     /** 
      * Prepare for the segue and stop it if the information isn't filled out totally
      */
-    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool
     {
         // Check to see if it's the correct segue
         if identifier == "toVehicleInfo"
         {
             // Check to see if the textboxes are empty
-            if firstNameField.text.isEmpty || lastNameField.text.isEmpty || emailField.text.isEmpty || passwordField.text.isEmpty || confirmPasswordField.text.isEmpty || companyField.text.isEmpty || phoneField.text.isEmpty
+            if firstNameField.text!.isEmpty || lastNameField.text!.isEmpty || emailField.text!.isEmpty || passwordField.text!.isEmpty || confirmPasswordField.text!.isEmpty || companyField.text!.isEmpty || phoneField.text!.isEmpty
             {
                 // Let the user know that they need to fill in the text fields
                 let alert = UIAlertView()
@@ -275,7 +275,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
                 
                 return false
             }
-            else if emailField.text.rangeOfString("@") == nil || emailField.text.rangeOfString(".") == nil
+            else if emailField.text!.rangeOfString("@") == nil || emailField.text!.rangeOfString(".") == nil
             {
                 // Let the user know that they need to fill in the text fields
                 let alert = UIAlertView()
@@ -340,16 +340,16 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
         Alamofire.request(.GET, endpoint)
             .responseJSON
             {
-                (request, response, data, error) in
+                request, response, result in
                 
                 // If there is an error, print it
-                if let JSONError = error
+                if let JSONError = result.error
                 {
-                    println(JSONError)
+                    print(JSONError)
                 }
                 
                 // Unwrap the data into a NSArray
-                if let json: NSArray = data as? NSArray
+                if let json: NSArray = result.value as? NSArray
                 {
                     // Delete all items from the company array first, in case
                     // the array is already populated
@@ -358,7 +358,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
                     // Populate the companies array with the objects
                     for item in json
                     {
-                        var company = Company(item: item as! NSDictionary)
+                        let company = Company(item: item as! NSDictionary)
                         self.companiesArray.append(company)
                     }
                 }
@@ -387,7 +387,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
             }
         
             // find the correct company from the array and select that row
-            if let index = find(companyNameArray, newCompany)
+            if let index = companyNameArray.indexOf(newCompany)
             {
                 self.picker.selectRow(index, inComponent: 0, animated: false)
             }
@@ -415,7 +415,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
     /**
      * Put the names of the companies into the picker view
      */
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String!
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
     {
         return self.companiesArray[row].name!
     }

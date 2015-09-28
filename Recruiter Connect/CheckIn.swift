@@ -50,7 +50,7 @@ class CheckIn
         }
         
         let credentialData    = "\(username):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
-        let base64Credentials = credentialData.base64EncodedStringWithOptions(nil)
+        let base64Credentials = credentialData.base64EncodedStringWithOptions([])
         let headers = ["Authorization":"Basic \(base64Credentials)"]
         
         let endpoint = "https://recruiterconnect.byu.edu/api/checkins/"
@@ -59,19 +59,19 @@ class CheckIn
         // Send the request via AlamoFire
         Alamofire.request(.POST, endpoint, parameters: parameters as [String : AnyObject]?, encoding: .JSON, headers: headers).responseJSON
         {
-            (request, response, data, error) in
+            request, response, result in
             
             // If there's an error, print it
-            if let JSONError = error
+            if let JSONError = result.error
             {
-                println("ERROR: \(JSONError)")
+                print("ERROR: \(JSONError)")
                 errorFlag = true
             }
             
             // Print the data
-            if let JSONData: NSDictionary = data as? NSDictionary
+            if let JSONData: NSDictionary = result.value as? NSDictionary
             {
-                println("<<<<<<<<<< CHECK IN DATA: \(JSONData)")
+                print("<<<<<<<<<< CHECK IN DATA: \(JSONData)")
                 
                 // Set the ID to the id returned
                 self.id = JSONData["id"] as? Int

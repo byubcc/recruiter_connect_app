@@ -108,17 +108,17 @@ class LunchDetailsViewController: UIViewController
             else
             {
                 // Variables for the x and y for the labels
-                var labelXCol1  : CGFloat = 65
-                var labelXCol2  : CGFloat = 210
-                var labelXCol3  : CGFloat = 360
+                let labelXCol1  : CGFloat = 65
+                let labelXCol2  : CGFloat = 210
+                let labelXCol3  : CGFloat = 360
                 var labelY      : CGFloat = 15
-                var labelWidth  : CGFloat = 80
-                var labelHeight : CGFloat = 50
+                let labelWidth  : CGFloat = 80
+                let labelHeight : CGFloat = 50
                 
                 // Variables for the x and y for the UISwitches
-                var switchXCol1 : CGFloat = 5
-                var switchXCol2 : CGFloat = 150
-                var switchXCol3 : CGFloat = 300
+                let switchXCol1 : CGFloat = 5
+                let switchXCol2 : CGFloat = 150
+                let switchXCol3 : CGFloat = 300
                 var switchY     : CGFloat = 25
                 
                 // Counter to change the x value based on the column
@@ -219,7 +219,7 @@ class LunchDetailsViewController: UIViewController
                 // actually selected
                 if let ingredientsArray = self.menuItem?.ingredients
                 {
-                    for (index, ingredientSwitch) in enumerate(self.ingredientSwitchArray)
+                    for (index, ingredientSwitch) in self.ingredientSwitchArray.enumerate()
                     {
                         if ingredientSwitch.on
                         {

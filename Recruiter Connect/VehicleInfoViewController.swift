@@ -237,10 +237,10 @@ class VehicleInfoViewController: UIViewController, UIPickerViewDataSource, UIPic
      **/
     func aboutToSegue(completion : (() -> ())?)
     {
-        var errorFlag = false
+        _ = false
         
         // Check to see if the text boxes are all full, if not alert the user
-        if licensePlate.text.isEmpty || carState.text.isEmpty || make.text.isEmpty || model.text.isEmpty || color.text.isEmpty
+        if licensePlate.text!.isEmpty || carState.text!.isEmpty || make.text!.isEmpty || model.text!.isEmpty || color.text!.isEmpty
         {
             // Create alert
             let alert = UIAlertView()
@@ -326,7 +326,7 @@ class VehicleInfoViewController: UIViewController, UIPickerViewDataSource, UIPic
     /**
      * Load in the data based on the state array
      **/
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String!
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
     {
         return self.stateArray[row]
     }

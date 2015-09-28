@@ -74,13 +74,16 @@ class MenuItem {
                 
                 Alamofire.request(.GET, ingredientEndpoint).responseJSON
                 {
-                    (request, response, data, error) in
+                    request, response, result in
                     
-                    println("<<<<<<<<<<<<<<<<<<<< INGREDIENT ERROR: \(error)")
-                    
-                    if let JSON : NSDictionary = data as? NSDictionary
+                    if let JSONError = result.error
                     {
-                        var ingredientObject = Ingredient(item: JSON)
+                        print("<<<<<<<<<<<<<<<<<<<< INGREDIENT ERROR: \(JSONError)")
+                    }
+                    
+                    if let JSON : NSDictionary = result.value as? NSDictionary
+                    {
+                        let ingredientObject = Ingredient(item: JSON)
                         self.ingredients!.append(ingredientObject)
                     }
                 }
@@ -90,14 +93,14 @@ class MenuItem {
         // Alamofire call to get the images
         Alamofire.request(.GET, self.photoURL!, parameters: nil).response
             {
-                (request, response, data, error) in
+                request, response, result, error in
                 
                 if let ERROR = error
                 {
-                    println("<<<<<<<<<<<<<<<<<<< IMAGE ERROR: \(ERROR)")
+                    print("<<<<<<<<<<<<<<<<<<< IMAGE ERROR: \(ERROR)")
                 }
                 
-                if let image = data
+                if let image = result
                 {
                     self.photo = UIImage(data : image)
                 }

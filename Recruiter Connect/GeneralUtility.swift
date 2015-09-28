@@ -62,12 +62,12 @@ class GeneralUtility
         
         Alamofire.request(.GET, endpoint).responseJSON
         {
-            (request, response, data, error) in
+            request, response, result in
             
             // If there is an error, turn the boolean to false
-            if let jsonError = error
+            if let jsonError = result.error
             {
-                println("<<<<<<<<<<<<<<<<<<<<<< NETWORK ERROR: \(jsonError)")
+                print("<<<<<<<<<<<<<<<<<<<<<< NETWORK ERROR: \(jsonError)")
                 errorFlag = true
             }
             
@@ -95,38 +95,38 @@ class GeneralUtility
         var errorFlag = false
         
         // Recruiter to pass back
-        var recruiter = Recruiter()
+        let recruiter = Recruiter()
         
         // Set up the endpoint
         let endpoint = "https://recruiterconnect.byu.edu/api/login.authenticate/"
         //let endpoint = "http:localhost:8000/api/"
         
         let credentialData    = "\(username):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
-        let base64Credentials = credentialData.base64EncodedStringWithOptions(nil)
+        let base64Credentials = credentialData.base64EncodedStringWithOptions([])
         let headers           = ["Authorization":"Basic \(base64Credentials)"]
         
         // Hit the server
         Alamofire.request(.GET, endpoint, parameters: nil, encoding: .JSON, headers: headers).responseJSON()
         {
-            (request, response, data, error) in
+            request, response, result in
             
             // If there's an error, print it out and set the errorflag
-            if let jsonError = error
+            if let jsonError = result.error
             {
-                println("<<<<<<<<<< LOG IN ERROR: \(jsonError)")
+                print("<<<<<<<<<< LOG IN ERROR: \(jsonError)")
                 
                 errorFlag = true
             }
             
             if let authResponse = response
             {
-                println("<<<<<<<<<<<<<<<<<<< LOG IN RESPONSE: \(authResponse)")
+                print("<<<<<<<<<<<<<<<<<<< LOG IN RESPONSE: \(authResponse)")
             }
             
             // Print the data
-            if let jsonData : NSDictionary = data as? NSDictionary
+            if let jsonData : NSDictionary = result.value as? NSDictionary
             {
-                println("<<<<<<<<<< LOG IN DATA: \(jsonData)")
+                print("<<<<<<<<<< LOG IN DATA: \(jsonData)")
                 
                 if jsonData["detail"] != nil
                 {
@@ -140,7 +140,7 @@ class GeneralUtility
                 }
                 else
                 {
-                    println("AUTHENTICATION WORKED!!!!!!")
+                    print("AUTHENTICATION WORKED!!!!!!")
                 }
             }
             

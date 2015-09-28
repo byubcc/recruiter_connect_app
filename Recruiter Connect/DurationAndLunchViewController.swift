@@ -45,9 +45,9 @@ class DurationAndLunchViewController: UIViewController, UIPickerViewDataSource, 
     }
     
     // Before any segue, make sure that the user has selected the a value for number of days
-    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool
     {
-        if numberDaysField.text.isEmpty
+        if numberDaysField.text!.isEmpty
         {
             // Create alert
             let alert = UIAlertView()
@@ -110,7 +110,7 @@ class DurationAndLunchViewController: UIViewController, UIPickerViewDataSource, 
     }
     
     // Return the index for the array for the picker view
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String!
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
     {
         return String(numDaysArray[row])
     }

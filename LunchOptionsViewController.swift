@@ -275,7 +275,7 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
         // Set the cell
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("menuCell", forIndexPath: indexPath) as! MenuCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("menuCell", forIndexPath: indexPath) as! MenuCell
         
         var menuItem = MenuItem()
         
@@ -378,7 +378,7 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
         // Make the GET request via AlamoFire
         Alamofire.request(.GET, endpoint).responseJSON
         {
-            (request, response, data, error) in
+            request, response, result in
             
             // Reinitialize the arrays, just in case the view is shown again
             self.salads      = [MenuItem]()
@@ -386,19 +386,19 @@ class LunchOptionsViewController: UIViewController, UICollectionViewDataSource, 
             self.sandwiches  = [MenuItem]()
         
             // If there's an error, print it
-            if let JSONError = error
+            if let JSONError = result.error
             {
-                println(JSONError)
+                print(JSONError)
                 errorFlag = true
             }
         
             // Unwrap the data into a NSArray
-            if let json: NSArray = data as? NSArray
+            if let json: NSArray = result.value as? NSArray
             {
                 // Populate the different lunch arrays based on their categories
                 for item in json
                 {
-                    var option = MenuItem(item: item as! NSDictionary)
+                    let option = MenuItem(item: item as! NSDictionary)
                     {
                         self.collection.reloadData()
                     }
@@ -451,7 +451,7 @@ extension LunchOptionsViewController: LunchDetailsDelegate, DessertSelectionDele
     {
         // Receive the lunchOrder object and pass it to the next modal
         
-        println("<<<<<<<<<<<<<<< GOT INTO THE DELEGATE METHOD")
+        print("<<<<<<<<<<<<<<< GOT INTO THE DELEGATE METHOD")
         
         self.lunchOrder = lunchOrder
         
@@ -461,7 +461,7 @@ extension LunchOptionsViewController: LunchDetailsDelegate, DessertSelectionDele
     func dismissDessertSelection()
     {
         // Perform the segue to the Thank You Screen
-        println("<<<<<<<<<<<<<<< GOT INTO THE DELEGATE METHOD")
+        print("<<<<<<<<<<<<<<< GOT INTO THE DELEGATE METHOD")
         
         self.performSegueWithIdentifier("toThankYouScreen", sender: self)
     }

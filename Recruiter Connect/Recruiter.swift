@@ -86,19 +86,19 @@ class Recruiter
         // Send the request via Alamofire
         Alamofire.request(.POST, endpoint, parameters: parameters, encoding: .JSON).responseJSON
         {
-            (request, response, data, error) in
+            request, response, result in
                 
             // if there's an error, print it
-            if let JSONError = error
+            if let JSONError = result.error
             {
-                println("<<<<<<<<<< RECRUITER ERROR: \(JSONError)")
+                print("<<<<<<<<<< RECRUITER ERROR: \(JSONError)")
                 errorFlag = true
             }
                 
             // Print the data
-            if let JSONData: NSDictionary = data as? NSDictionary
+            if let JSONData: NSDictionary = result.value as? NSDictionary
             {
-                println("<<<<<<<<<< RECRUITER DATA: \(JSONData)")
+                print("<<<<<<<<<< RECRUITER DATA: \(JSONData)")
                     
                 // Set the ID
                 self.id = JSONData["id"] as? Int

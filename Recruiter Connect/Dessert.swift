@@ -63,7 +63,7 @@ class Dessert {
     {
         var errorFlag = false
         
-        if let photoURL = self.photoURL
+        if let _ = self.photoURL
         {
             // Alamofire call to get the image
             Alamofire.request(.GET, self.photoURL!, parameters: nil).response
@@ -72,7 +72,7 @@ class Dessert {
                     
                 if let ERROR = error
                 {
-                    println("<<<<<<<<<<<<<<<<<<<<<<< DESSERT IMAGE ERROR: \(ERROR)")
+                    print("<<<<<<<<<<<<<<<<<<<<<<< DESSERT IMAGE ERROR: \(ERROR)")
                     errorFlag = true
                 }
                     

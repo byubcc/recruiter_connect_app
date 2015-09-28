@@ -82,11 +82,11 @@ class LunchOrder
         }
         
         let credentialData    = "\(username):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
-        let base64Credentials = credentialData.base64EncodedStringWithOptions(nil)
+        let base64Credentials = credentialData.base64EncodedStringWithOptions([])
         let headers           = ["Authorization":"Basic \(base64Credentials)"]
         
         // Print the credentials
-        println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< LUNCH ORDER CREDENTIALS: \(username) : \(password)")
+        print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< LUNCH ORDER CREDENTIALS: \(username) : \(password)")
         
         // Set the endpoint
         let endpoint = "https://recruiterconnect.byu.edu/api/lunchorders/"
@@ -95,19 +95,19 @@ class LunchOrder
         // Send the POST request via Alamofire
         Alamofire.request(.POST, endpoint, parameters: parameters as? [String : AnyObject], encoding: .JSON, headers : headers).responseJSON
         {
-            (request, response, data, error) in
+            request, response, result in
             
             // If there is an error, mark the error flag and print the error
-            if let ERROR = error
+            if let ERROR = result.error
             {
-                println("<<<<<<<<<< LUNCH ORDER ERROR: \(ERROR)")
+                print("<<<<<<<<<< LUNCH ORDER ERROR: \(ERROR)")
                 errorFlag = true
             }
             
             // Print the data for now
-            if let JSON : NSDictionary = data as? NSDictionary
+            if let JSON : NSDictionary = result.value as? NSDictionary
             {
-                println("<<<<<<<<<< LUNCH ORDER DATA: \(JSON)")
+                print("<<<<<<<<<< LUNCH ORDER DATA: \(JSON)")
                 
                 // Check that there's no authentication issues
                 // If there is a key in the dictionary called "Detail" then there might be 

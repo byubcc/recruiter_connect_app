@@ -32,7 +32,7 @@ class ImageLoader
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
         {
             () in
-            var data: NSData? = self.cache.objectForKey(urlString) as? NSData
+            let data: NSData? = self.cache.objectForKey(urlString) as? NSData
             
             if let goodData = data
             {
@@ -45,7 +45,7 @@ class ImageLoader
                 return
             }
             
-            var downloadTask: NSURLSessionDataTask = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: urlString)!, completionHandler: {(data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+            let downloadTask: NSURLSessionDataTask = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: urlString)!, completionHandler: {(data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
                 if(error != nil)
                 {
                     completionHandler(image: nil, url: urlString)
@@ -54,8 +54,8 @@ class ImageLoader
                 
                 if data != nil
                 {
-                    let image = UIImage(data: data)
-                    self.cache.setObject(data, forKey: urlString)
+                    let image = UIImage(data: data!)
+                    self.cache.setObject(data!, forKey: urlString)
                     dispatch_async(dispatch_get_main_queue(),
                     {
                         () in

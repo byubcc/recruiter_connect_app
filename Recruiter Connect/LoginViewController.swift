@@ -75,7 +75,7 @@ class LoginViewController: UIViewController
     @IBAction func logInButtonTapped(sender: AnyObject)
     {
         // First make sure the fields are filled
-        if emailField.text.isEmpty || emailField.text.isEmpty
+        if emailField.text!.isEmpty || emailField.text!.isEmpty
         {
             // Let the user know that they need to fill in the text fields
             let alert = UIAlertView()
@@ -107,7 +107,7 @@ class LoginViewController: UIViewController
                 else
                 {
                     // Log them in
-                    GeneralUtility.authenticateRecruiter(self.emailField.text, password: self.passwordField.text)
+                    GeneralUtility.authenticateRecruiter(self.emailField.text!, password: self.passwordField.text!)
                     {
                         (errorFlag, recruiter) in
                         

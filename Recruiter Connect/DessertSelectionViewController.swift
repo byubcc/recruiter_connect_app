@@ -187,7 +187,7 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
         // Set the cell
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("dessertCell", forIndexPath: indexPath) as! DessertCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("dessertCell", forIndexPath: indexPath) as! DessertCell
         
         // Change the label to be the name of the menu item
         cell.label.text = self.desserts[indexPath.item].name
@@ -247,25 +247,25 @@ class DessertSelectionViewController: UIViewController, UICollectionViewDataSour
         // Make the GET request via AlamoFire
         Alamofire.request(.GET, endpoint).responseJSON
         {
-            (request, response, data, error) in
+            request, response, result in
                 
             // Reinitialize the array, just in case page is reloaded
             self.desserts = [Dessert]()
             
             // If there's an error, print it
-            if let JSONError = error
+            if let JSONError = result.error
             {
-                println("<<<<<<<<<<<<<<< DESSERT ERROR: \(JSONError)")
+                print("<<<<<<<<<<<<<<< DESSERT ERROR: \(JSONError)")
                 errorFlag = true
             }
                 
             // Unwrap the data into a NSArray
-            if let json: NSArray = data as? NSArray
+            if let json: NSArray = result.value as? NSArray
             {
                 // Create a dessert for each item returned in the array
                 for item in json
                 {
-                    var dessert = Dessert(item: item as! NSDictionary)
+                    let dessert = Dessert(item: item as! NSDictionary)
                     
                     // Grab the images and then append the dessert to the array
                     dessert.retrieveImages()
