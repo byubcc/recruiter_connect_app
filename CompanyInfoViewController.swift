@@ -52,18 +52,18 @@ class CompanyInfoViewController: UIViewController
     {
         // First make sure that the textbox is filled in
         // If not, don't do anything
-        if companyName.text!.isEmpty == false
+        if let name = companyName.text
         {
             // Create a new Company object based on the name entered
-            let company = Company()
-            company.name = companyName.text
+            let company  = Company()
+            company.name = name
             
             // Send the info to the DB
             // If it passes, then move the user back to the previous page and
             // reload the pickerview and select the new company
             company.create(
             {
-                self.delegate!.updateNewCompany(company.name!)
+                self.delegate!.updateNewCompany(name)
                 self.dismissViewControllerAnimated(true, completion: nil)
             })
         }
