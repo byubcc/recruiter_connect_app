@@ -161,7 +161,7 @@ class RecruiterInfoViewController: UIViewController, UIPickerViewDataSource, UIP
         }
         
         // Check to see if the textboxes are empty
-        if firstNameField.text!.isEmpty || lastNameField.text!.isEmpty || emailField.text!.isEmpty || passwordField.text!.isEmpty || confirmPasswordField.text!.isEmpty || companyField.text!.isEmpty || phoneField.text!.isEmpty
+        if firstNameField.text == "" || lastNameField.text == "" || emailField.text == "" || passwordField.text == "" || confirmPasswordField.text == "" || companyField.text == "" || phoneField.text == ""
         {
             // Let the user know that they need to fill in the text fields
             let alert = UIAlertView()
